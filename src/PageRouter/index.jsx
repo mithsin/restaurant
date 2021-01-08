@@ -15,8 +15,8 @@ const PageRouter = () => {
         <Route exact path="/payment" component = { Payment } />
         <Route exact path="/order-receipt" component = { OrderReceipt } />
         <Route exact path="/ichot/admin-login" component = { AdminLogin } />
-        <Route exact path="/admin" component = { Admin } />
-        {/* <PrivateRoute exact path="/admin" component = { Admin } /> */}
+        {/* <Route exact path="/admin" component = { Admin } /> */}
+        <PrivateRoute exact path="/admin" component = { Admin } />
         <Route path='*' component={NotExist} />
     </Switch>
   );

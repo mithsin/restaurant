@@ -61,11 +61,11 @@ export default function MuiTabs({tabArray}) {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            {tabArray.map((tab, idx)=> <Tab label={tab.title} {...a11yProps(idx)} />)}
+            {tabArray.map((tab, idx)=> <Tab key={`tab-${idx}`} label={tab.title} {...a11yProps(idx)} />)}
         </Tabs>
       </AppBar>
       {tabArray.map((tab, idx)=> 
-        <TabPanel value={value} index={idx} >
+        <TabPanel value={value} index={idx} key={`tab-panel-${idx}`}>
             {tab.page}
         </TabPanel>
       )}

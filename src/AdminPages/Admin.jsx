@@ -6,8 +6,8 @@ import axios from 'axios';
 
 const Admin = () => {
     const [currentOrders, setCurrentOrders] = useState([]);
-    // const wsUri = process.env.REACT_APP_API_WEBSOCKETS;
-    // const websocket = new WebSocket(`${wsUri}?ID=admin`);
+    const wsUri = process.env.REACT_APP_API_WEBSOCKETS;
+    const websocket = new WebSocket(`${wsUri}?ID=admin`);
     const [notic, setNotice] = useState()
     useEffect(()=>{
             axios.get(process.env.REACT_APP_API_RESTAURANT_ORDER)
@@ -26,9 +26,9 @@ const Admin = () => {
         }
     },[notic]);
 
-    // websocket.onmessage = (evt) => { 
-    //     setNotice(evt.data)
-    // };
+    websocket.onmessage = (evt) => { 
+        setNotice(evt.data)
+    };
 
     const tabArray = [{
         title: "ORDERS",

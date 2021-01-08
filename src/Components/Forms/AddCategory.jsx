@@ -45,9 +45,10 @@ const AddCategory = ({categoryTitle, open, handleToggle}) => {
     };
 
     const handleSubmitEdit = () => {
-        dispatch(setAddNewMenuCategory([...menuState, formInputs]))
-        setFormInputs({})
-        setImageURL('')
+        dispatch(setAddNewMenuCategory([...menuState, formInputs]));
+        setFormInputs({});
+        setImageURL('');
+        handleToggle();
     };
 
     const inputSettings = [{
@@ -105,7 +106,7 @@ const AddCategory = ({categoryTitle, open, handleToggle}) => {
                         <MuiButton 
                             bgColor="#fff"
                             labelColor="#000"
-                            label="SUBMIT UPDATE"
+                            label="ADD"
                             onClick={ handleSubmitEdit }/>
                     </div>
                 </div>

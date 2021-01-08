@@ -53,6 +53,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const handleSubmitEdit = () => {
         const fullUpdateMenu = (formInputs.itemDisable === undefined) ? {...formInputs, itemDisable: false} : formInputs;
         dispatch(setUpdateMenu(fullUpdateMenu))
+        handleClose();
     };
 
     // input box setting

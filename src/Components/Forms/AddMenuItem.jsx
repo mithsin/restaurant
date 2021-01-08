@@ -54,9 +54,10 @@ const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
                 : category
         );
         // console.log('onsubmit --->: ', fullMenu)
-        dispatch(setAddNewMenuCategory(fullMenu))
-        setFormInputs({})
-        setImageURL('')
+        dispatch(setAddNewMenuCategory(fullMenu));
+        setFormInputs({});
+        setImageURL('');
+        handleToggle();
     };
 
     const inputSettings = [{
