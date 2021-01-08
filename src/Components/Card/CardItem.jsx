@@ -1,9 +1,7 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { CardItemStyle } from './styles';
 
 const CardItem = ({cardStatus, index, setSelected}) => {
-    let history = useHistory();
     const classes = CardItemStyle();
         
     return(
@@ -15,14 +13,10 @@ const CardItem = ({cardStatus, index, setSelected}) => {
                 <img
                     className={classes.img} 
                     src={cardStatus.imgSrc}
-                    alt='card image' />
+                    alt='card' />
             </li>
             <li className={classes.CardTitleShowMenu}>
                 SHOW MENU
-                {/* <span>
-                    {cardStatus.descriptions}
-                </span> */}
-                {/* <button>SHOW MENU</button> */}
             </li>
         </ul>
     );

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderDetailState, setCart, setCartUpdate } from 'States/orderSlice';
-import TextField from '@material-ui/core/TextField';
-import './styles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MuiButton, MuiNumberInput } from 'Components/MUI';
+import './styles.scss';
 
 
-const ItemDetails = ({itemDetails, handleOpen, handleClose}) => {
+const ItemDetails = ({itemDetails, handleClose}) => {
     const dispatch = useDispatch();
     const cartOrderList = useSelector(orderDetailState);
     const {
@@ -17,7 +16,6 @@ const ItemDetails = ({itemDetails, handleOpen, handleClose}) => {
         title,
         description,
         price,
-        orderAmount
     } = itemDetails;
     const [currentOrderAmount, setCurrentOrderAmount] = useState("1")
 
@@ -28,11 +26,11 @@ const ItemDetails = ({itemDetails, handleOpen, handleClose}) => {
 
     const handleAddItemToCart = async() => {
         const findDetailHistory = cartOrderList.find(itm => itm.itemNumber === itemNumber);
-        const updateCardOrderList = 
-            findDetailHistory
-                ? dispatch(setCartUpdate({...itemDetails, orderAmount: currentOrderAmount}))
-                : dispatch(setCart(cartOrderList.concat({...itemDetails, orderAmount: currentOrderAmount})));
-        handleClose();
+
+        findDetailHistory
+            ? dispatch(setCartUpdate({...itemDetails, orderAmount: currentOrderAmount}))
+            : dispatch(setCart(cartOrderList.concat({...itemDetails, orderAmount: currentOrderAmount})));
+            handleClose();
     };
 
     return (

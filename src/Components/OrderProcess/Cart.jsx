@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { orderDetailState, postNewOrder, setCartUpdate, setDeleteItem } from 'States/orderSlice';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core';
@@ -140,7 +139,6 @@ const Cart = ({}) => {
         )
     };
 
-    console.log('disableCheckout-->: ', disableCheckout)
 
     return (
         <div className="Cart-Wrapper">

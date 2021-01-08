@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminOrders from './AdminOrders';
 import AdminMenu from './AdminMenu';
 import MuiTabs from 'Components/MUI/MuiTabs';

@@ -8,15 +8,7 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import Modal from '@material-ui/core/Modal';
 import './styles.scss';
 
-const initItemState = {
-    imgSrc: '',
-    itemNumber: '',
-    title: '',
-    description: '',
-    price: '',
-}
-
-const AddCategory = ({categoryTitle, open, handleToggle}) => {
+const AddCategory = ({open, handleToggle}) => {
     const dispatch = useDispatch();
     const  menuState= useSelector(menuListState);
     const [formInputs, setFormInputs] = useState({menuList: []});

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './styles.scss';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import ItemEdit from 'Components/Forms/ItemEdit';
+import './styles.scss';
 
 const ItemCardList = ({ item, buttonLabel }) => {
     const { 

@@ -3,7 +3,7 @@ import { homeStyles } from './styles';
 import ReactResponsiveCarousel from 'Components/ImageBlock/ReactResponsiveCarousel';
 import { useHistory } from 'react-router-dom';
 import { menuListState } from 'States/menuSlice';
-import { orderDetailState, postNewOrder, setCartUpdate, setDeleteItem } from 'States/orderSlice';
+import { orderDetailState } from 'States/orderSlice';
 import { useSelector } from 'react-redux';
 import CardItem from 'Components/Card/CardItem';
 import MenuBox from 'Components/MenuBox';

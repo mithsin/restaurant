@@ -16,7 +16,7 @@ const initItemState = {
     price: '',
 }
 
-const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
+const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const dispatch = useDispatch();
     const  menuState= useSelector(menuListState);
     const [formInputs, setFormInputs] = useState({...initItemState});
@@ -33,8 +33,12 @@ const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
     },[imageURL])
 
     const formInputChange = (e) => {
-        if(e.target.name === 'points' && (/[^\d]/g).test(e.target.value)){
-            setInputError(true)
+        if(e.target.name === 'itemNumber'){
+            setInputError(false)
+            setFormInputs({ 
+                ...formInputs,
+                [e.target.name] :  e.target.value.toUpperCase()
+            })
         } else {
             setInputError(false)
             setFormInputs({ 
@@ -45,25 +49,33 @@ const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
     };
 
     const handleSubmitEdit = () => {
-        const fullMenu = menuState.map((category)=>
-            (category.title === categoryTitle)
-                ?  {
-                    ...category,
-                    menuList: category.menuList.concat([formInputs])
-                }
-                : category
-        );
-        // console.log('onsubmit --->: ', fullMenu)
-        dispatch(setAddNewMenuCategory(fullMenu));
-        setFormInputs({});
-        setImageURL('');
-        handleToggle();
+        const checkItemNumberExist = formInputs?.itemNumber && (thisCategory.menuList.find(item => item.itemNumber === formInputs?.itemNumber) !== undefined);
+        if(!checkItemNumberExist){
+            const fullMenu = menuState.map((category)=>
+                (category.title === thisCategory.title)
+                    ?  {
+                        ...category,
+                        menuList: category.menuList.concat([formInputs])
+                    }
+                    : category
+            );
+            // console.log('formInputs-->: ', formInputs)
+            dispatch(setAddNewMenuCategory(fullMenu));
+            setFormInputs({});
+            setImageURL('');
+            handleToggle();
+        } else {
+            // console.log('item number already exist')
+            setInputError(true)
+        }
+
     };
 
     const inputSettings = [{
         type: "text",
         name: "itemNumber",
         placeholder: "itemNumber",
+        ...inputError && {color: "red"}
     },{
         type: "text",
         name: "title",
@@ -107,6 +119,7 @@ const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
                                 name="imgSrc"
                                 label="image link"
                                 onChange={(e)=> setImageURL(e.target.value)}/>}
+                        {inputError && <h2 style={{color: 'red'}}>This item number already exist</h2>}
                             
                         {
                             inputSettings.map((inputSetting, index)=>
@@ -122,7 +135,8 @@ const AddMenuItem = ({categoryTitle, open, handleToggle}) => {
                         <MuiButton 
                             bgColor="#fff"
                             labelColor="#000"
-                            label="SUBMIT UPDATE"
+                            label="ADD ITEM"
+                            disabled={ inputError }
                             onClick={ handleSubmitEdit }/>
                     </div>
                 </div>

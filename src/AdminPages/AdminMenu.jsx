@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { menuListState } from 'States/menuSlice';
 import { useSelector } from 'react-redux';
 import AddCategory from 'Components/Forms/AddCategory';

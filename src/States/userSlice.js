@@ -76,7 +76,6 @@ export const userLogout = ({history}) => dispatch => {
 export const userLoginCheck = () => dispatch => {
     if (userPool.getCurrentUser() != null) {
         userPool.getCurrentUser().getSession((err, session) => {
-            console.log('session-->: ', session)
             if(err){console.log('userPool.getCurrentUser() err---->', err)};
                 dispatch(setIsLoggedIn(true));
             // axios.get(`${ApiGateWayUserURL}?subId=${session?.idToken?.payload?.sub}`, {

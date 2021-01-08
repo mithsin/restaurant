@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { menuListState, setMenu } from 'States/menuSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { setMenu } from 'States/menuSlice';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import "./styles.scss";
 

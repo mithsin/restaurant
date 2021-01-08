@@ -28,7 +28,6 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
             })
             .catch(err=> console.log(err))
     }
-    // console.log('itemDetails--->: ', itemDetails)
     const OrderItemList = ({itemNumber, title, orderAmount}) => (
         <div className="OrderItemListWrapper">
             <h3>{itemNumber}</h3>
@@ -37,14 +36,14 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
         </div>
     );
 
-    const BuyerDetails = ({buyerDetails}) =>{
-        const {
-            address,
-            eMail,
-            name,
-            phoneNumber,
-        } = buyerDetails;
-    }
+    // const BuyerDetails = ({buyerDetails}) =>{
+    //     const {
+    //         address,
+    //         eMail,
+    //         name,
+    //         phoneNumber,
+    //     } = buyerDetails;
+    // }
     return (
         <div className="OrderBlock-wrapper">
             <h3>{index}, order-number: {orderNumber}</h3>

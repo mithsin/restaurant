@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import './styles.scss';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import ItemDetails from 'Components/Card/ItemDetails';
+import './styles.scss';
 
-const rand = () => {
-  return Math.round(Math.random() * 20) - 10;
-}
+// const rand = () => {
+//   return Math.round(Math.random() * 20) - 10;
+// }
 
 const ItemCard = ({ item }) => {
     const { 
@@ -33,7 +32,6 @@ const ItemCard = ({ item }) => {
             </div>
             <div className="Item-Card-Text">
                 <h2>{title}</h2>
-                {/* <p>{description}</p> */}
                 <span>${price}</span>
                 <button type="button" onClick={handleOpen}>Detail</button>
             </div>

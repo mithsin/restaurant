@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AddMenuItem from 'Components/Forms/AddMenuItem';
 import ItemCardList from 'Components/Card/ItemCardList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +20,7 @@ const MenuBlock = ({category}) => {
                     <AddMenuItem 
                         open={addItemClose}
                         handleToggle={() => setAddItemClose(false)}
-                        categoryTitle={category.title} />}
+                        thisCategory={category}/>}
             </div>
             <div className="AdminOrders-OrderList-Wrapper">
                 {category?.menuList?.map((item, index)=> <ItemCardList key={`item-${index}`} item={item} buttonLabel="Edit" />)}
