@@ -10,11 +10,11 @@ const UserStatusCheck = createContext({});
 const UserStatusProvider = ({ children }) => {
   const dispatch = useDispatch();
   const userIsSignIn = useSelector(userIsLoggedIn)
+
+  // check user status and make up date if necessary.
   useEffect(()=>{
     !userIsSignIn && dispatch(userLoginCheck());
   },[userIsSignIn])
-  // Check user status when page refresh.
-  
   
     return (
         <UserStatusCheck.Provider value={userIsSignIn}>
