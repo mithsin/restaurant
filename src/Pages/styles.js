@@ -26,6 +26,8 @@ export const HeaderStyles = createUseStyles({
         fontSize: '1.5rem',
         marginRight: '1rem',
         cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
         '&:hover': {
             borderBottom: '3px solid #81bed2',
         },

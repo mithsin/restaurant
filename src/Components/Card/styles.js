@@ -17,6 +17,7 @@ export const CardItemStyle = createUseStyles({
     CardImgWrapper: {
         height: '70%',
         cursor: 'pointer',
+        overflow: 'hidden',
         // '& :hover': {
         //     boxShadow: '0px 0px 7px 2px #69c8e6',
         // },

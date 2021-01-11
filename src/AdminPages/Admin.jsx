@@ -13,7 +13,8 @@ const Admin = () => {
     const [currentOrders, setCurrentOrders] = useState([]);
     const wsUri = process.env.REACT_APP_API_WEBSOCKETS;
     const websocket = new WebSocket(`${wsUri}?ID=admin`);
-    const [notic, setNotice] = useState()
+    const [notify, closeNotify] = useState(false);
+    const [notice, setNotice] = useState()
     useEffect(()=>{
             axios.get(process.env.REACT_APP_API_RESTAURANT_ORDER)
                 .then(res => {
@@ -22,14 +23,15 @@ const Admin = () => {
                 .catch(err => console.log(err))
     },[]);
     useEffect(()=>{
-        if(notic){
+        if(notice){
             axios.get(process.env.REACT_APP_API_RESTAURANT_ORDER)
                 .then(res => {
+                    closeNotify(true)
                     setCurrentOrders(res.data.orders)
                 })
                 .catch(err => console.log(err))
         }
-    },[notic]);
+    },[notice]);
 
     websocket.onmessage = (evt) => { 
         setNotice(evt.data)
@@ -39,7 +41,9 @@ const Admin = () => {
         title: "ORDERS",
         page: <AdminOrders 
                 setNotice={setNotice}
-                notic={notic}
+                notice={notice}
+                notify={notify}
+                closeNotify={()=>closeNotify(false)}
                 currentOrders={currentOrders}
                 setCurrentOrders={setCurrentOrders}/>
     },{
@@ -56,8 +60,9 @@ const Admin = () => {
             width: '100%',
         }}>
             <h1>ADMIN DASHBOARD</h1>
-            <button onClick={ ()=> dispatch(userLogout({history}))}>Logout</button>
+            
             <MuiTabs tabArray={tabArray} />
+            <button style={{width: '100px', padding: '8px'}} onClick={ ()=> dispatch(userLogout({history}))}>Logout</button>
         </div>
     )
 };

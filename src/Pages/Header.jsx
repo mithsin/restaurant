@@ -16,6 +16,7 @@ const Header = () => {
                 {
                     headerMenuLinks.map((type, index)=> 
                         <li key={`${index}-link`} className={classes.MenuLi}  onClick={()=> history.push(type.link)}>
+                            {type.icon}
                             {type.title}
                         </li>)
                 }
