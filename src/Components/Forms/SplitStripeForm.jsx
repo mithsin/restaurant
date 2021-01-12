@@ -41,14 +41,15 @@ const useOptions = () => {
 
 const stripeTokenHandler = async(
   token, 
-  amount, 
-  purchaseItem, 
+  amount,
   itemDetails,
   buyerDetails,
   dispatch,
-  history) => {
+  history
+) => {
 
   const handlePurchaseDispatch = () => {
+
     const param = {
         orderNumber: '',
         orderTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -57,7 +58,6 @@ const stripeTokenHandler = async(
         itemDetails: itemDetails,
         buyerDetails: {...buyerDetails}
     }
-    console.log('param--->: ', param)
     dispatch(postNewOrder(param))
     history.push('/order-receipt') 
   }
@@ -65,7 +65,7 @@ const stripeTokenHandler = async(
   const paymentData = {
     token: token.id,
     amount: amount,
-    description: purchaseItem.toString()
+    description: itemDetails.toString()
   };
   // Use fetch to send the token ID and any other payment data to your server.
   // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -81,7 +81,7 @@ const stripeTokenHandler = async(
   response.json()
     .then(res => {
       if(res.statusCode === 200){
-        handlePurchaseDispatch(itemDetails, buyerDetails);
+        handlePurchaseDispatch();
       } else {
         console.log("not 200, something else is wrong")
       }})
@@ -90,10 +90,10 @@ const stripeTokenHandler = async(
 }
 
 const SplitStripeForm = ({
+    disableCheckout,
     itemDetails,
     buyerDetails,
     dollarAmount,
-    disableCheckout,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -114,6 +114,7 @@ const SplitStripeForm = ({
     if(result.error){
       console.log('result-err---->: ', result.error.message)
     } else {
+
       stripeTokenHandler(
         result.token, 
         dollarAmount, 

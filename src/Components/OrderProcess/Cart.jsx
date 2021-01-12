@@ -8,11 +8,9 @@ import { FormControl } from '@material-ui/core';
 // import { MuiButton } from 'Components/MUI';
 import SplitStripeForm from 'Components/Forms/SplitStripeForm';
 // import moment from 'moment';
-
-
 import './styles.scss';
 
-const Cart = ({}) => {
+const Cart = ({}) => { 
     // let history = useHistory();
     // const dispatch = useDispatch();
     const [totalAmount, setTotalAmount] = useState(0)
@@ -159,10 +157,9 @@ const Cart = ({}) => {
                 </FormControl>
                 <SplitStripeForm 
                     disableCheckout={ disableCheckout }
-                    cartOrderList={ cartOrderList }
                     itemDetails={ cartOrderList }
                     buyerDetails={ buyerDetails }
-                    dollarAmount={dollarAndTax(totalAmount)}
+                    dollarAmount={ dollarAndTax(totalAmount) }
                 />
             </div>
         </div>
