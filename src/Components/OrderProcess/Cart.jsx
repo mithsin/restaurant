@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { orderDetailState, postNewOrder, setCartUpdate, setDeleteItem } from 'States/orderSlice';
+// import { useHistory } from 'react-router-dom';
+import { orderDetailState, setCartUpdate, setDeleteItem } from 'States/orderSlice';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core';
-import { MuiButton } from 'Components/MUI';
-import moment from 'moment';
+// import { MuiButton } from 'Components/MUI';
+import SplitStripeForm from 'Components/Forms/SplitStripeForm';
+// import moment from 'moment';
 
 
 import './styles.scss';
 
 const Cart = ({}) => {
-    let history = useHistory();
-    const dispatch = useDispatch();
+    // let history = useHistory();
+    // const dispatch = useDispatch();
     const [totalAmount, setTotalAmount] = useState(0)
     const [buyerDetails, setBuyerDetails] = useState({})
     const [disableCheckout, setDisableCheckout] = useState(true)
@@ -31,46 +32,23 @@ const Cart = ({}) => {
         if(buyerDetails.name && buyerDetails.phoneNumber) {setDisableCheckout(false)}
     },[buyerDetails])
     
-    // this should happen when payment successful
-        // const onMessage = (evt) => {
-        //     console.log('onMessage: ', evt)
-        //     evt?.data && history.push('/order-receipt')
-
-        // }
-        // websocket.onmessage = function(evt) { onMessage(evt) };
-
-        // const handleCheckOutWebsocket = (message) => {
-
-        //     const sendMessage = {
-        //         message : "New order available", 
-        //         action : "message"
-        //     }
-            
-        //     websocket.send(JSON.stringify(sendMessage));
-        // }
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
-
-  
-    // This should be the function when payment successful
-        // Dispatch order to database and redux store
-        // the change page to receipt
-    const onPaymentSuccessful = (param) => {
-        dispatch(postNewOrder(param))
-    }
-
-    const handleCheckOut = () => {
-        const param = {
-            orderNumber: '',
-            orderTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
-            fullFillTime: '',
-            fullFillStatus: false,
-            itemDetails: cartOrderList,
-            buyerDetails: {...buyerDetails}
-        }
-        onPaymentSuccessful(param)
-        history.push('/order-receipt')
-    }
-
+    // const onPaymentSuccessful = (param) => {
+    //     dispatch(postNewOrder(param))
+    // }
+    const dollarAndTax = (a) => {return parseInt((a * 1.07 * 100).toFixed(2))};
+    // const handleCheckOut = () => {
+    //     const param = {
+    //         orderNumber: '',
+    //         orderTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
+    //         fullFillTime: '',
+    //         fullFillStatus: false,
+    //         itemDetails: cartOrderList,
+    //         buyerDetails: {...buyerDetails}
+    //     }
+    //     console.log('param--->: ', param)
+        // onPaymentSuccessful(param)
+        // history.push('/order-receipt') 
+    // }
 
     const buyerInputChange = (event) => {
         event.preventDefault();
@@ -89,7 +67,7 @@ const Cart = ({}) => {
         const dispatch = useDispatch();
         const [currentOrderAmount, setCurrentOrderAmount] = useState(orderAmount)
         const updatePrice = (parseInt(orderAmount) * price).toFixed(2);
-
+        
         const handleCheckoutAddUpdate = (num) => {
             if(parseInt(currentOrderAmount) < num){
                 setCurrentOrderAmount(parseInt(currentOrderAmount + 1))
@@ -139,18 +117,10 @@ const Cart = ({}) => {
         )
     };
 
-
     return (
         <div className="Cart-Wrapper">
             <h1>ORDER DETAILS</h1>
-            <div className="Cart-User-Info">
-            <FormControl>
-                <TextField required name="name" id="Checkout-Name" label="Name" onChange={buyerInputChange} />
-                <TextField name="address" id="Checkout-Address" label="Address" onChange={buyerInputChange} />
-                <TextField required name="phoneNumber" id="Checkout-PhoneNumber" label="Phone Number" onChange={buyerInputChange} />
-                <TextField name="eMail" id="Checkout-EMail" label="E-Mail" onChange={buyerInputChange} />
-            </FormControl>
-            </div>
+            
             <h2 className="Cart-Items-in-cart-title">Items in Cart</h2>
             <div className="Cart-Added-Items">                
                 { (cartOrderList.length < 1) 
@@ -167,7 +137,7 @@ const Cart = ({}) => {
                 <h3>TOTAL: ${(totalAmount * 1.07).toFixed(2)}</h3>
             </div>
             {/* <button onClick={handleCheckOut}>CHECK OUT</button> */}
-            <MuiButton 
+            {/* <MuiButton 
                 props={{
                     color: '#717171',
                     bgColor: '#a2e6fd',
@@ -178,7 +148,23 @@ const Cart = ({}) => {
                 label='CHECK OUT'
                 onClick={handleCheckOut}
                 onKeyPress={handleCheckOut}
-            />
+            /> */}
+
+            <div className="Cart-User-Info">
+                <FormControl>
+                    <TextField required name="name" id="Checkout-Name" label="Name" onChange={buyerInputChange} />
+                    <TextField name="address" id="Checkout-Address" label="Address" onChange={buyerInputChange} />
+                    <TextField required name="phoneNumber" id="Checkout-PhoneNumber" label="Phone Number" onChange={buyerInputChange} />
+                    <TextField name="eMail" id="Checkout-EMail" label="E-Mail" onChange={buyerInputChange} />
+                </FormControl>
+                <SplitStripeForm 
+                    disableCheckout={ disableCheckout }
+                    cartOrderList={ cartOrderList }
+                    itemDetails={ cartOrderList }
+                    buyerDetails={ buyerDetails }
+                    dollarAmount={dollarAndTax(totalAmount)}
+                />
+            </div>
         </div>
     );
 };

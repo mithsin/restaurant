@@ -23,11 +23,12 @@ export const HeaderStyles = createUseStyles({
         alignItems: 'flex-end',
     },
     MenuLi: {
-        fontSize: '1.5rem',
+        fontSize: '1.2rem',
         marginRight: '1rem',
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         '&:hover': {
             borderBottom: '3px solid #81bed2',
         },
@@ -68,7 +69,7 @@ export const homeStyles = createUseStyles({
             margin: '0',
         },
         '& svg': {
-            color: 'lightblue',
+            color: 'steelblue',
         }
     },
     wrapper: {
