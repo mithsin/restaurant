@@ -7,9 +7,9 @@ import { MuiButton, MuiNumberInput } from 'Components/MUI';
 import './styles.scss';
 
 
-const ItemDetails = ({itemDetails, handleClose}) => {
+const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
     const dispatch = useDispatch();
-    const cartOrderList = useSelector(orderDetailState);
+    // const cartOrderList = useSelector(orderDetailState);
     const {
         imgSrc,
         itemNumber,
