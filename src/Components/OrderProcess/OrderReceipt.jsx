@@ -32,7 +32,7 @@ const OrderReceipt = () => {
         <div className="OrderReceipt-wrapper">
             <h2>Order Receipt</h2>
             <div>
-                YOUR ORDER DETAIL
+                THANK YOU AND YOUR ORDER WILL BE READY SOON
             </div>
             <MuiButton 
                 props={{
