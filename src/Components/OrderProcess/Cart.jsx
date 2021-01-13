@@ -1,24 +1,18 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
 import { orderDetailState, setCartUpdate, setDeleteItem } from 'States/orderSlice';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core';
-// import { MuiButton } from 'Components/MUI';
 import SplitStripeForm from 'Components/Forms/SplitStripeForm';
-// import moment from 'moment';
 import './styles.scss';
 
 const Cart = ({}) => { 
-    // let history = useHistory();
-    // const dispatch = useDispatch();
     const [totalAmount, setTotalAmount] = useState(0)
     const [buyerDetails, setBuyerDetails] = useState({})
     const [disableCheckout, setDisableCheckout] = useState(true)
+    const [haveError, setHaveError] = useState('')
     const cartOrderList = useSelector(orderDetailState);
-    // const wsUri = process.env.REACT_APP_API_WEBSOCKETS;
-    // const websocket = new WebSocket(wsUri);
     useEffect(()=>{
         cartOrderList && 
         setTotalAmount(cartOrderList.reduce((accumulator, current) => {
@@ -30,24 +24,7 @@ const Cart = ({}) => {
         if(buyerDetails.name && buyerDetails.phoneNumber) {setDisableCheckout(false)}
     },[buyerDetails])
     
-    // const onPaymentSuccessful = (param) => {
-    //     dispatch(postNewOrder(param))
-    // }
     const dollarAndTax = (a) => {return parseInt((a * 1.07 * 100).toFixed(2))};
-    // const handleCheckOut = () => {
-    //     const param = {
-    //         orderNumber: '',
-    //         orderTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
-    //         fullFillTime: '',
-    //         fullFillStatus: false,
-    //         itemDetails: cartOrderList,
-    //         buyerDetails: {...buyerDetails}
-    //     }
-    //     console.log('param--->: ', param)
-        // onPaymentSuccessful(param)
-        // history.push('/order-receipt') 
-    // }
-
     const buyerInputChange = (event) => {
         event.preventDefault();
         setBuyerDetails({...buyerDetails, [event.target.name]: event.target.value})
@@ -57,7 +34,6 @@ const Cart = ({}) => {
         const {
             imgSrc,
             itemNumber,
-            itemDetails,
             title,
             price,
             orderAmount,
@@ -118,7 +94,6 @@ const Cart = ({}) => {
     return (
         <div className="Cart-Wrapper">
             <h1>ORDER DETAILS</h1>
-            
             <h2 className="Cart-Items-in-cart-title">Items in Cart</h2>
             <div className="Cart-Added-Items">                
                 { (cartOrderList.length < 1) 
@@ -134,20 +109,8 @@ const Cart = ({}) => {
                 <h4>tax: ${(totalAmount * .07).toFixed(2)}</h4>
                 <h3>TOTAL: ${(totalAmount * 1.07).toFixed(2)}</h3>
             </div>
-            {/* <button onClick={handleCheckOut}>CHECK OUT</button> */}
-            {/* <MuiButton 
-                props={{
-                    color: '#717171',
-                    bgColor: '#a2e6fd',
-                    hColor: "white",
-                    hbgColor: "#287d9a"
-                }}
-                disabled={ (disableCheckout || (cartOrderList.length < 1)) ? true : false }
-                label='CHECK OUT'
-                onClick={handleCheckOut}
-                onKeyPress={handleCheckOut}
-            /> */}
 
+            {haveError && <p style={{color: 'red'}}>{haveError}</p>}
             <div className="Cart-User-Info">
                 <FormControl>
                     <TextField required name="name" id="Checkout-Name" label="Name" onChange={buyerInputChange} />
@@ -160,6 +123,7 @@ const Cart = ({}) => {
                     itemDetails={ cartOrderList }
                     buyerDetails={ buyerDetails }
                     dollarAmount={ dollarAndTax(totalAmount) }
+                    setHaveError={ setHaveError }
                 />
             </div>
         </div>

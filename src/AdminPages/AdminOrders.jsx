@@ -8,13 +8,18 @@ const AdminOrders = ({notify, closeNotify, notice, setNotice, currentOrders, set
         setNotice('');
         closeNotify();
     }
+
+    const sortByDate = (arrayDate) => {
+        return arrayDate.sort((a,b)=> new Date(a.orderTime) - new Date(b.orderTime))
+    }
+
     return(
         <section>
             <h2>Order List</h2>
 
             <div className="AdminOrders-OrderList-Wrapper">
                 {
-                    currentOrders?.map((order, index) => 
+                    sortByDate(currentOrders)?.map((order, index) => 
                         <OrderBlock
                             currentOrders={currentOrders}
                             setCurrentOrders={setCurrentOrders}

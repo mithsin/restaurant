@@ -1,31 +1,28 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setClearOrderList } from 'States/orderSlice';
 import { MuiButton } from 'Components/MUI';
 import { useHistory } from 'react-router-dom';
-import './styles.scss';
+import './styles.scss'; 
 
 const OrderReceipt = () => {
     let history = useHistory();
+    const dispatch = useDispatch();
     const wsUri = process.env.REACT_APP_API_WEBSOCKETS;
     const websocket = new WebSocket(wsUri);
     
     // triiger websocket to send order on load, and disable button until websocket successfully update the order
     useEffect(()=>{
-        websocket.onopen = (event) => {        
-            // console.log('event on open -->: ', event)  
+        websocket.onopen = (event) => {
             const sendMessage = {
                 message : "New order available", 
                 action : "message"
             }
-            // console.log('websocket state-->: ', websocket.readyState)
+            dispatch(setClearOrderList());
             websocket.send(JSON.stringify(sendMessage));
         }
     },[])
-    // const onMessage = (evt) => {
-    //     console.log('evnt-data----->: ', evt.data)
-    //     evt?.data && setDisableClose(false)
-    //     evt?.data && websocket.close();
-    // }
-    // websocket.onmessage = function(evt) { onMessage(evt) };
+
     const handleOnClick = () => {
         websocket.close();
         history.push('/')

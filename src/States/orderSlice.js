@@ -29,6 +29,10 @@ export const orderSlice = createSlice({
             localStorage.setItem('inCart', JSON.stringify(updateCart));
             return {...state, cart: updateCart}
         },
+        setClearOrderList: (state, action) => {
+            localStorage.removeItem('inCart');
+            return {...state, cart: []}
+        }
     },
 });
 
@@ -36,6 +40,7 @@ export const {
     setCart,
     setCartUpdate,
     setDeleteItem,
+    setClearOrderList,
 } = orderSlice.actions;
 
 

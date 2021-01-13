@@ -17,7 +17,8 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
         const param = {
             ordId: orderId,
             fullFillStatus: true,
-            fullFillTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
+            fullFillTime: new Date(),
+            // fullFillTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
         }
         axios.put(process.env.REACT_APP_API_RESTAURANT_ORDER, param)
             .then(res=> {
@@ -47,7 +48,7 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
     return (
         <div className="OrderBlock-wrapper">
             <h3>{index}, order-number: {orderNumber}</h3>
-            <span>order time: {orderTime}</span>
+            <span>order time: {moment(orderTime).format('MMMM Do YYYY, h:mm:ss a')}</span>
             {  itemDetails?.map((item, index) => {
                return <OrderItemList key={`orderItem-${index}`} {...item}/>
             })}
