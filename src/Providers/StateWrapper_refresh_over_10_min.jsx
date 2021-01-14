@@ -7,6 +7,9 @@ import "./styles.scss";
 const StateWrapper = ({children}) => {
     const dispatch = useDispatch();
     const currentMenuState = useSelector(menuListState)
+
+    // update after 10 min
+
     useEffect(()=>{
         let menuSession = sessionStorage.getItem('menu');
         let timeSession = sessionStorage.getItem('menuTime');

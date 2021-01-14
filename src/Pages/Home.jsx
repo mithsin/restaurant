@@ -9,9 +9,7 @@ import CardItem from 'Components/Card/CardItem';
 import MenuBox from 'Components/MenuBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import {
-    imageList,
-} from 'StaticDatas';
+import { imageList } from 'StaticDatas';
 
 const Home = () => {
     let history = useHistory();
@@ -20,7 +18,6 @@ const Home = () => {
     const classes = homeStyles();
     const [selected, setSelected] = useState(0)
    
-
     return(
         <div className={classes.wrapper}>
             {(cartOrderList.length > 0) && 
@@ -33,21 +30,23 @@ const Home = () => {
                 <ReactResponsiveCarousel 
                     imgList={imageList}/>
             </div>
-            <div className={classes.CategoryWrapper}>
-                <h1>MENU</h1>
-                <div className={classes.CategoryList}>
-                    {categoryList.map((category, index)=> (
-                        <CardItem 
-                            cardStatus={category} 
-                            key={`${index}-category`}
-                            index={index}
-                            setSelected={setSelected}/>
-                    ))}
+            {categoryList && 
+                <div className={classes.CategoryWrapper}>
+                    <h1>MENU</h1>
+                    <div className={classes.CategoryList}>
+                        {categoryList.map((category, index)=> (
+                            <CardItem 
+                                cardStatus={category} 
+                                key={`${index}-category`}
+                                index={index}
+                                setSelected={setSelected}/>
+                        ))}
+                    </div>
+                    <div className={classes.MenuOutterWrap}>
+                        <MenuBox {...categoryList[selected]} />
+                    </div>
                 </div>
-                <div className={classes.MenuOutterWrap}>
-                    <MenuBox {...categoryList[selected]} />
-                </div>
-            </div>
+            }
         </div>
     )
 }
