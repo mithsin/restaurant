@@ -2,20 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import UserStatusProvider from 'PageRouter/UserStatusProvider';
+import { ThemeProvider } from 'react-jss'
 import store from 'Store/store';
 import { Provider } from 'react-redux';
 import './index.css';
+import { theme } from 'themeColor';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <UserStatusProvider>
-        <Router>
-          <App />
-        </Router>
-      </UserStatusProvider>
+      <ThemeProvider theme={theme}>
+        <UserStatusProvider>
+          <Router>
+            <App />
+          </Router>
+        </UserStatusProvider>
+      </ThemeProvider>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')
