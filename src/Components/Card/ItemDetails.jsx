@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { orderDetailState, setCart, setCartUpdate } from 'States/orderSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MuiButton, MuiNumberInput } from 'Components/MUI';
+import { MuiNumberInput } from 'Components/MUI';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
+
 import './styles.scss';
 
 
@@ -54,13 +56,7 @@ const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
                     currentNumber={currentOrderAmount}
                     setCurrentNumber={setCurrentOrderAmount}
                 />
-                <MuiButton 
-                    props={{
-                        color: '#717171',
-                        bgColor: '#a2e6fd',
-                        hColor: "white",
-                        hbgColor: "#287d9a"
-                    }}
+                <SubmitButton 
                     label='ADD TO CART'
                     onClick={handleAddItemToCart}
                     onKeyPress={handleAddItemToCart}/>

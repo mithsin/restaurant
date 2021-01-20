@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postNewOrder } from 'States/orderSlice';
-import { MuiButton } from 'Components/MUI';
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import {
   useStripe,

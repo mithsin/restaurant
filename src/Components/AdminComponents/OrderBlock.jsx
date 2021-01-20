@@ -1,5 +1,5 @@
 import React from 'react';
-import { MuiButton } from 'Components/MUI';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import moment from 'moment';
 import axios from 'axios';
 import './styles.scss';
@@ -52,14 +52,7 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
             {  itemDetails?.map((item, index) => {
                return <OrderItemList key={`orderItem-${index}`} {...item}/>
             })}
-            <MuiButton 
-                props={{
-                    color: '#717171',
-                    bgColor: '#a2e6fd',
-                    hColor: "white",
-                    hbgColor: "#287d9a",
-                    margin: "auto 0 0 0",
-                }}
+            <SubmitButton 
                 label='ORDER READY'
                 onClick={()=> handleOrderFullfill(ordId)}
                 onKeyPress={()=> handleOrderFullfill(ordId)}

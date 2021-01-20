@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setClearOrderList } from 'States/orderSlice';
-import { MuiButton } from 'Components/MUI';
+import { CancelButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import { useHistory } from 'react-router-dom';
 import './styles.scss'; 
 
@@ -34,13 +34,7 @@ const OrderReceipt = () => {
             <div>
                 THANK YOU AND YOUR ORDER WILL BE READY SOON
             </div>
-            <MuiButton 
-                props={{
-                    color: '#717171',
-                    bgColor: '#a2e6fd',
-                    hColor: "white",
-                    hbgColor: "#287d9a"
-                }}
+            <CancelButton 
                 label='CLOSE'
                 onClick={handleOnClick}
                 onKeyPress={handleOnClick}

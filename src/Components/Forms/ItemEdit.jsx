@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setUpdateMenu } from 'States/menuSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MuiButton, MuiInputField } from 'Components/MUI';
+import { MuiInputField } from 'Components/MUI';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ImageUpload from '../ImageUpload/ImageUpload';
@@ -116,9 +117,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                     onChange={ formInputChange }/>
                             )
                         }
-                        <MuiButton 
-                            bgColor="#fff"
-                            labelColor="#000"
+                        <SubmitButton  
                             label="SUBMIT UPDATE"
                             onClick={ handleSubmitEdit }/>
                     </div>

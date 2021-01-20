@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { MuiButton, MuiInputField } from 'Components/MUI';
+import { MuiInputField } from 'Components/MUI';
+import { SubmitButton, CancelButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import { userIsLoggedIn, userLogin, userLogout } from 'States/userSlice';
 
 import './styles.scss';
@@ -75,25 +76,11 @@ const AdminLogin = () => {
                                 onKeyPress={ LoginSubmitKeyPress }/>
                         )
                     }
-                    <MuiButton 
+                    <SubmitButton 
                         label="LOGIN"
-                        props={{
-                            color: "black",
-                            bgColor: "#3f51b5",
-                            boxShadow: "2px 2px 23px rgba(0, 0, 0, 0.2) inset",
-                            hColor: "white",
-                            hbgColor: "#6495ED"
-                        }}
                         onClick={LoginSubmit} />
-                    <MuiButton
+                    <CancelButton
                         label="LOGOUT"
-                        props={{
-                            color: "black",
-                            bgColor: "#cf142b",
-                            boxShadow: "2px 2px 23px rgba(0, 0, 0, 0.2) inset",
-                            hColor: "white",
-                            hbgColor: "#DC143C"
-                        }}
                         onClick={ ()=> dispatch(userLogout({history})) } />
                 </div>
                 {/* <span>Dont have a account? <Link to="/signup"> click here</Link></span> */}

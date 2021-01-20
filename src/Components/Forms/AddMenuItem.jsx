@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { menuListState, setAddNewMenuCategory } from 'States/menuSlice';
-import { MuiButton, MuiInputField } from 'Components/MUI';
-import { InfoButton } from 'Components/MUI/MuiComponents/MuiBtn';
+import { MuiInputField } from 'Components/MUI';
+import { EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -134,13 +134,8 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                                     onChange={ formInputChange }/>
                             )
                         }
-                        <MuiButton 
-                            bgColor="#fff"
-                            labelColor="#000"
+                        <EditButton 
                             label="ADD ITEM"
-                            disabled={ inputError }
-                            onClick={ handleSubmitEdit }/>
-                        <InfoButton 
                             disabled={ inputError }
                             onClick={ handleSubmitEdit }/>
                     </div>
