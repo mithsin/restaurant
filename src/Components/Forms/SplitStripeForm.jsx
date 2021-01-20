@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postNewOrder } from 'States/orderSlice';
 import { MuiButton } from 'Components/MUI';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import {
   useStripe,
   useElements,
@@ -152,13 +153,7 @@ const SplitStripeForm = ({
           onChange={event => event}
         />
       </label>
-      <MuiButton 
-          props={{
-              color: '#717171',
-              bgColor: '#a2e6fd',
-              hColor: "white",
-              hbgColor: "#287d9a"
-          }}
+      <SubmitButton 
           disabled={ (!stripe || isLoading || disableCheckout || (itemDetails.length < 1)) ? true : false }
           label='CHECK OUT'
           type="submit"

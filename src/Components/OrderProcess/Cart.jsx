@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderDetailState, setCartUpdate, setDeleteItem } from 'States/orderSlice';
-import { AddCircle, RemoveCircle } from '@material-ui/icons';
+import { AddBox, RemoveCircle } from '@material-ui/icons';
+import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core';
 import SplitStripeForm from 'Components/Forms/SplitStripeForm';
@@ -79,8 +80,8 @@ const Cart = ({}) => {
                             InputProps={{
                                 endAdornment: (
                                     <span className="AddMinusIconWrapper">
-                                        <AddCircle onClick={()=>handleCheckoutAddUpdate(10)} style={{color: 'green', size: '16px', cursor: 'pointer'}}/>
-                                        <RemoveCircle onClick={()=>handleCheckoutMinusUpdate(1)} style={{color: 'red', size: '16px', cursor: 'pointer'}}/>
+                                        <AddBox onClick={()=>handleCheckoutAddUpdate(10)} style={{color: 'green', size: '16px', cursor: 'pointer'}}/>
+                                        <IndeterminateCheckBoxIcon onClick={()=>handleCheckoutMinusUpdate(1)} style={{color: 'red', size: '16px', cursor: 'pointer'}}/>
                                     </span>
                             )}}/>
                         

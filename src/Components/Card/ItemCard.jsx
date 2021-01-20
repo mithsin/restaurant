@@ -3,7 +3,7 @@ import Modal from '@material-ui/core/Modal';
 import ItemDetails from 'Components/Card/ItemDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderDetailState, setCart, setCartUpdate } from 'States/orderSlice';
-import { MuiButton, MuiInputField } from 'Components/MUI';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import './styles.scss';
 
 // const rand = () => {
@@ -48,16 +48,10 @@ const ItemCard = ({ item }) => {
                 {/* <button type="button" onClick={handleOpen}>Detail</button> */}
             </div>
             <div>
-                <MuiButton
+                <SubmitButton 
                     label="ADD TO CART"
-                    props={{
-                        color: "black",
-                        bgColor: "#3f51b5",
-                        boxShadow: "2px 2px 23px rgba(0, 0, 0, 0.2) inset",
-                        hColor: "white",
-                        hbgColor: "#6495ED"
-                    }}
-                    onClick={ handleAddItemToCart } />
+                    onClick={ handleAddItemToCart }
+                />
             </div>
             <Modal
                 open={open}

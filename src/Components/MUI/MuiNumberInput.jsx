@@ -1,5 +1,6 @@
 import React from 'react';
-import { AddCircle, RemoveCircle } from '@material-ui/icons';
+import { AddBox, RemoveCircle } from '@material-ui/icons';
+import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import TextField from '@material-ui/core/TextField';
 import './styles.scss';
 
@@ -38,8 +39,8 @@ const MuiNumberInput = ({
                     InputProps={{
                         endAdornment: (
                             <>
-                                <AddCircle onClick={()=>handleCheckoutAddUpdate(max)} style={{color: 'green', cursor: 'pointer'}}/>
-                                <RemoveCircle onClick={()=>handleCheckoutMinusUpdate(min)} style={{color: 'red', cursor: 'pointer'}}/>
+                                <AddBox onClick={()=>handleCheckoutAddUpdate(max)} style={{color: 'green', cursor: 'pointer'}}/>
+                                <IndeterminateCheckBoxIcon onClick={()=>handleCheckoutMinusUpdate(min)} style={{color: 'red', cursor: 'pointer'}}/>
                             </>
                         )}}
                     />
