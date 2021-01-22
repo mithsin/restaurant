@@ -7,6 +7,7 @@ import { orderDetailState } from 'States/orderSlice';
 import { useSelector } from 'react-redux';
 import CardItem from 'Components/Card/CardItem';
 import MenuBox from 'Components/MenuBox';
+import {useTheme} from 'react-jss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -15,16 +16,17 @@ import {
 
 const Home = () => {
     let history = useHistory();
+    const theme = useTheme();
     const cartOrderList = useSelector(orderDetailState);
-    const categoryList = useSelector(menuListState)
-    const classes = homeStyles();
-    const [selected, setSelected] = useState(0)
+    const categoryList = useSelector(menuListState);
+    const classes = homeStyles({...theme.iconsType.cart});
+    const [selected, setSelected] = useState(0);
    
 
     return(
         <div className={classes.wrapper}>
             {(cartOrderList.length > 0) && 
-                <span className={classes.HomeOrderOnlineSpan} onClick={()=> history.push('/cart')}>
+                <span className={classes.HomeOrderOnlineCartIcon} onClick={()=> history.push('/cart')}>
                     <p>{cartOrderList.length}</p>
                     <FontAwesomeIcon icon={faShoppingCart} className="fa-2x"/>
                 </span>

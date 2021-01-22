@@ -4,9 +4,9 @@ import { headerMenuLinks } from 'StaticDatas';
 import { HeaderStyles } from './styles';
 import { logoImg } from 'StaticDatas'
 
-const Header = () => {
+const Header = ({theme}) => {
     const history = useHistory();
-    const classes = HeaderStyles();
+    const classes = HeaderStyles({...theme.iconsType.header});
 
     return(
         <div className={classes.wrapper}>

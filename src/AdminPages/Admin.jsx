@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { userLogout } from 'States/userSlice';
+import { CancelButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import AdminOrders from './AdminOrders';
 import AdminMenu from './AdminMenu';
 import MuiTabs from 'Components/MUI/MuiTabs';
@@ -59,10 +60,25 @@ const Admin = () => {
             flexDirection: 'column',
             width: '100%',
         }}>
-            <h1>ADMIN DASHBOARD</h1>
-            
+            <div style={{
+                maxWidth: '1440px',
+                margin: 'auto',
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+            }}>
+                <h1>ADMIN DASHBOARD</h1>
+                <span style={{
+                    width: '100px',
+                }}>
+                    <CancelButton 
+                        label='Logout'
+                        onClick={()=> dispatch(userLogout({history}))}
+                    />
+                </span>
+            </div>
             <MuiTabs tabArray={tabArray} />
-            <button style={{width: '100px', padding: '8px'}} onClick={ ()=> dispatch(userLogout({history}))}>Logout</button>
+            
         </div>
     )
 };

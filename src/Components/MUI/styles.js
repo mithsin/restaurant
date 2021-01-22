@@ -3,15 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles({
     buttonStyle: props => {
       return {
-        marginBottom: '10px',
-        margin: props.margin,
-        padding: props.padding || "15px 0",
+        margin: props.margin || '1rem 0 0 0',
+        padding: props.padding || "1rem 0",
         color: props.color,
         backgroundColor: props.bgColor,
         boxShadow: props.boxShadow,
         width: props.width || '100%',
         maxWidth: props.maxWidth || '100%',
         fontSize: props.fontSize || '1rem',
+        fontWeight: '100',
         "&:hover": {
           color: props.hColor,
           backgroundColor: props.hbgColor

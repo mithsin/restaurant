@@ -9,13 +9,12 @@ const Footer = () => {
             <div className="Footer-Inner-Wrap">
                 <div>{copyRight}</div>
                 <div className="Footer-Social-Block">
-                    {socialList.map((soc, index)=>{
-                        return (
-                            <a key={`${index}-social`} href={soc.link}>
+                    {socialList.map((soc, index)=>
+                        soc.link &&
+                            (<a key={`${index}-social`} href={soc.link}>
                                 <FontAwesomeIcon icon={soc.icon} className="fa-2x"/>
-                            </a>
-                        )
-                    })}
+                            </a>)
+                    )}
                 </div>
             </div>
         </div>

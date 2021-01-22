@@ -13,7 +13,7 @@ export const socialList = [{
     link: '/faInstagram',
 },{
     icon: faPinterest,
-    link: '/faPinterest',
+    // link: '/faPinterest',
 },{
     icon: faYelp,
     link: '/faYelp',

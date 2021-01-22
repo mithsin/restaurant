@@ -6,6 +6,7 @@ import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox'
 import TextField from '@material-ui/core/TextField';
 import { FormControl } from '@material-ui/core';
 import SplitStripeForm from 'Components/Forms/SplitStripeForm';
+import AliPayBtn from 'Components/Forms/AliPayBtn';
 import './styles.scss';
 
 const Cart = ({}) => { 
@@ -119,6 +120,7 @@ const Cart = ({}) => {
                     <TextField required name="phoneNumber" id="Checkout-PhoneNumber" label="Phone Number" onChange={buyerInputChange} />
                     <TextField name="eMail" id="Checkout-EMail" label="E-Mail" onChange={buyerInputChange} />
                 </FormControl>
+                <AliPayBtn buyerDetails={ buyerDetails } />
                 <SplitStripeForm 
                     disableCheckout={ disableCheckout }
                     itemDetails={ cartOrderList }

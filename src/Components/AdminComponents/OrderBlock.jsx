@@ -37,14 +37,6 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
         </div>
     );
 
-    // const BuyerDetails = ({buyerDetails}) =>{
-    //     const {
-    //         address,
-    //         eMail,
-    //         name,
-    //         phoneNumber,
-    //     } = buyerDetails;
-    // }
     return (
         <div className="OrderBlock-wrapper">
             <h3>{index}, order-number: {orderNumber}</h3>
@@ -53,6 +45,7 @@ const OrderBlock = ({ order, currentOrders, setCurrentOrders, index}) => {
                return <OrderItemList key={`orderItem-${index}`} {...item}/>
             })}
             <SubmitButton 
+                props={{margin: 'auto 0 0 0'}}
                 label='ORDER READY'
                 onClick={()=> handleOrderFullfill(ordId)}
                 onKeyPress={()=> handleOrderFullfill(ordId)}

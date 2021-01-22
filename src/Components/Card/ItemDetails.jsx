@@ -49,7 +49,7 @@ const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
             <div className="Item-Details-Text">
                 <h2>{title}</h2>
                 <p>{description}</p>
-                <span>${price}</span>
+                <h3>${price}</h3>
                 <MuiNumberInput 
                     min="1"
                     max="50"

@@ -22,16 +22,22 @@ export const HeaderStyles = createUseStyles({
         textAlign: 'center',
         alignItems: 'flex-end',
     },
-    MenuLi: {
-        fontSize: '1.2rem',
-        marginRight: '1rem',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '&:hover': {
-            borderBottom: '3px solid #81bed2',
-        },
+    MenuLi: props => {
+        return {
+            fontSize: '1.2rem',
+            marginRight: '1rem',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            color: props.iconText || '#000',
+            '&:hover': {
+                borderBottom: '3px solid #81bed2',
+            },
+            '& svg': {
+                color: props.iconColor || '#000',
+            }
+        }
     },
 });
 
@@ -49,27 +55,29 @@ export const homeStyles = createUseStyles({
         borderRadius: '6px',
         padding: '8px',
     },
-    HomeOrderOnlineSpan: {
-        position: 'fixed',
-        right: '16px',
-        top: '50px',
-        zIndex: '99',
-        fontWeight: '600',
-        fontSize: '1.5rem',
-        border: '1px dotted black',
-        backgroundColor: '#ffffff33',
-        textDecoration: 'none',
-        borderRadius: '6px',
-        padding: '8px',
-        cursor: 'pointer',
-        '& p': {
-            position: 'absolute',
-            top: '0',
-            right: '0',
-            margin: '0',
-        },
-        '& svg': {
-            color: 'steelblue',
+    HomeOrderOnlineCartIcon: props => {
+        return {
+            position: 'fixed',
+            right: '16px',
+            top: '50px',
+            zIndex: '99',
+            fontWeight: '600',
+            fontSize: '1.5rem',
+            border: '1px dotted black',
+            backgroundColor: '#ffffff33',
+            textDecoration: 'none',
+            borderRadius: '6px',
+            padding: '8px',
+            cursor: 'pointer',
+            '& p': {
+                position: 'absolute',
+                top: '0',
+                right: '0',
+                margin: '0',
+            },
+            '& svg': {
+                color: props.iconColor || '#000',
+            }
         }
     },
     wrapper: {
