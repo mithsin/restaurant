@@ -1,0 +1,17 @@
+{
+    "all-comments": [
+        {
+            "commentId": "comment-12l3ksajd91",
+            "comments": [{
+                "rating": 4,
+                "message": "great food"
+            }]   
+        },{
+            "commentId": "comment-12l3ksajd92",
+            "comments": [{
+                "rating": 3,
+                "message": "good food"
+            }]   
+        }
+    ]
+}

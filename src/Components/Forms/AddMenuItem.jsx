@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { menuListState, setAddNewMenuCategory } from 'States/menuSlice';
-import { MuiInputField } from 'Components/MUI';
+import { MuiInputField, MuiCheckboxList } from 'Components/MUI';
 import { EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +25,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const [imageURL, setImageURL] = useState('');
     const [inputError, setInputError] = useState(false);
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
+    const [allergenList, setAllergenList] = useState([])
     useEffect(()=>{
         if(imageURL){
             setFormInputs({
@@ -57,15 +58,15 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                 (category.title === thisCategory.title)
                     ?  {
                         ...category,
-                        menuList: category.menuList.concat([formInputs])
+                        menuList: category.menuList.concat([{...formInputs, options: {...formInputs?.options, allergens: allergenList}}])
                     }
                     : category
             );
-            // console.log('formInputs-->: ', formInputs)
-            dispatch(setAddNewMenuCategory(fullMenu));
-            setFormInputs({});
-            setImageURL('');
-            handleToggle();
+            console.log('fullMenu-->: ', fullMenu);
+            // dispatch(setAddNewMenuCategory(fullMenu));
+            // setFormInputs({});
+            // setImageURL('');
+            // handleToggle();
         } else {
             // console.log('item number already exist')
             setInputError(true)
@@ -74,6 +75,20 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     };
 
     const inputSettings = [{
+        type: "checkList",
+        listTitle: "Allergens",
+        list: [
+            {title: "milk", on: false},
+            {title: "egg", on: false},
+            {title: "fish", on: false},
+            {title: "shellfish", on: false},
+            {title: "peanuts", on: false},
+            {title: "wheat", on: false},
+            {title: "soybeans", on: false},
+            {title: "garlic", on: false},
+            {title: "onion", on: false},
+        ]
+    },{
         type: "text",
         name: "itemNumber",
         placeholder: "itemNumber",
@@ -124,16 +139,26 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                         {inputError && <h2 style={{color: 'red'}}>This item number already exist</h2>}
                             
                         {
-                            inputSettings.map((inputSetting, index)=>
-                                <MuiInputField
-                                    key={`${index}-inputsetting`}
-                                    {...inputSetting}
-                                    bgColor="#fff"
-                                    name={inputSetting.name}
-                                    label={inputSetting.placeholder}
-                                    onChange={ formInputChange }/>
-                            )
-                        }
+                            inputSettings.map((inputSetting, index)=> {
+                                if(inputSetting.type === "checkList"){
+                                    return (
+                                        <MuiCheckboxList 
+                                            {...inputSetting} 
+                                            updateListState={inputSetting.list} 
+                                            setAllergenList={setAllergenList}/>
+                                    )
+                                }
+                                if(inputSetting.type === "text"){
+                                    return(
+                                        <MuiInputField
+                                            key={`${index}-inputsetting`}
+                                            {...inputSetting}
+                                            bgColor="#fff"
+                                            name={inputSetting.name}
+                                            label={inputSetting.placeholder}
+                                            onChange={ formInputChange }/>)
+                                }
+                        })}
                         <EditButton 
                             label="ADD ITEM"
                             disabled={ inputError }
