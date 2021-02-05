@@ -36,9 +36,10 @@ const MuiCheckboxList = ({updateListState, setUpdateListState, listTitle, helpTe
       if(item.title === event.target.name){return ({title: event.target.name, on: (event.target.checked ? true : false )})}
       else {return item}
     })
-    setUpdateListState(updateState);
+    
+    setUpdateListState({...updateListState, list: [updateState]});
   };
-
+  console.log("updateListState--->: ", updateListState)
   const FormControllerLabelTemplate = ({title, on}) => (
     <FormControlLabel
         className={classes.formControlLabel} control={<Checkbox checked={on} onChange={handleChange} name={title} />}
@@ -52,7 +53,8 @@ const MuiCheckboxList = ({updateListState, setUpdateListState, listTitle, helpTe
         {listTitle && <FormLabel component="legend">{listTitle}</FormLabel>}
         <FormGroup className={classes.listRoot}>
           {
-              updateListState.map((item, index)=><FormControllerLabelTemplate key={`check-list-${index}`} {...item}/>)
+            updateListState.map((item, index)=>
+              <FormControllerLabelTemplate key={`check-list-${index}`} {...item}/>)
           }
         </FormGroup>
         {helpText && <FormHelperText>{helpText}</FormHelperText>}

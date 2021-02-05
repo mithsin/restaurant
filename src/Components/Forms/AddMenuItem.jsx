@@ -141,11 +141,12 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                         {
                             inputSettings.map((inputSetting, index)=> {
                                 if(inputSetting.type === "checkList"){
+                                    console.log('inputSetting--->: ', inputSetting)
                                     return (
                                         <MuiCheckboxList 
                                             {...inputSetting} 
                                             updateListState={inputSetting.list} 
-                                            setAllergenList={setAllergenList}/>
+                                            setUpdateListState={setAllergenList}/>
                                     )
                                 }
                                 if(inputSetting.type === "text"){
