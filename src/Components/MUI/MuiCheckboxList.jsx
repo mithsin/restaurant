@@ -28,21 +28,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MuiCheckboxList = ({updateListState, setUpdateListState, listTitle, helpText}) => {
+const MuiCheckboxList = ({checkBoxState, setCheckBoxStateUpdate, handleChange, listTitle, helpText}) => {
   const classes = useStyles();
-
-  const handleChange = (event) => {
-    const updateState = updateListState.map((item)=> {
-      if(item.title === event.target.name){return ({title: event.target.name, on: (event.target.checked ? true : false )})}
-      else {return item}
-    })
-    
-    setUpdateListState({...updateListState, list: [updateState]});
-  };
-  console.log("updateListState--->: ", updateListState)
+  console.log('CheckBoxState--->: ', checkBoxState)
+  const handleChangeFunction = (event) => handleChange(event, checkBoxState, setCheckBoxStateUpdate);
   const FormControllerLabelTemplate = ({title, on}) => (
     <FormControlLabel
-        className={classes.formControlLabel} control={<Checkbox checked={on} onChange={handleChange} name={title} />}
+        className={classes.formControlLabel} 
+        control={
+          <Checkbox 
+            checked={on} 
+            onChange={handleChangeFunction} 
+            name={title} />}
         label={title}
     />
   );
@@ -53,7 +50,7 @@ const MuiCheckboxList = ({updateListState, setUpdateListState, listTitle, helpTe
         {listTitle && <FormLabel component="legend">{listTitle}</FormLabel>}
         <FormGroup className={classes.listRoot}>
           {
-            updateListState.map((item, index)=>
+            checkBoxState.map((item, index)=>
               <FormControllerLabelTemplate key={`check-list-${index}`} {...item}/>)
           }
         </FormGroup>

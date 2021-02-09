@@ -11,20 +11,20 @@
             "itemDisable": false,
             "options": {
                 "sizes": [{
-                    "s": {
-                        "price": 9.99,
-                        "detail": "Small details"
-                    }
-                },{
-                    "m": {
-                        "price": 10.89,
-                        "detail": "Medium details"
-                    }
-                },{
-                    "l": {
-                        "price": 11.99,
-                        "detail": "Large details"
-                    }
+                      "s": {
+                          "price": 9.99,
+                          "detail": "Small details"
+                        }
+                    },{
+                      "m": {
+                          "price": 10.89,
+                          "detail": "Medium details"
+                      }
+                    },{
+                      "l": {
+                          "price": 11.99,
+                          "detail": "Large details"
+                      }
                 }],
                 "add-on": [{
                     "name": "bubble",

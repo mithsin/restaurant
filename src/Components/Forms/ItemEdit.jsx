@@ -3,11 +3,19 @@ import { useDispatch } from 'react-redux';
 import { setUpdateMenu } from 'States/menuSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MuiInputField } from 'Components/MUI';
+import { MuiInputField, MuiCheckboxList } from 'Components/MUI';
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ImageUpload from '../ImageUpload/ImageUpload';
+import { AddMenuItemHandleChange } from './FormSubmitFunctions';
+import {
+    allergenListDefault,
+    sizeListDefault,
+    addOnsDefault,
+    spicyDefault,
+    initItemState
+} from './FormDefault';
 import './styles.scss';
 
 const ItemEdit = ({itemDetails, handleClose}) => {
@@ -20,10 +28,11 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     } = itemDetails;
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(itemDetails.itemDisable ? itemDetails.itemDisable : false);
-    const [formInputs, setFormInputs] = useState({...itemDetails});
     const [imageURL, setImageURL] = useState('');
-    const [inputError, setInputError] = useState(false)
-    const [toggleUploadImg, setToggleUploadImg] = useState(true)
+    const [inputError, setInputError] = useState(false);
+    const [toggleUploadImg, setToggleUploadImg] = useState(true);
+    const [formInputs, setFormInputs] = useState({...itemDetails});
+    const [allergenList, setAllergenList] = useState(allergenListDefault);
 
     useEffect(()=>{
         if(imageURL){
@@ -53,13 +62,18 @@ const ItemEdit = ({itemDetails, handleClose}) => {
 
     const handleSubmitEdit = () => {
         const fullUpdateMenu = (formInputs.itemDisable === undefined) ? {...formInputs, itemDisable: false} : formInputs;
-        dispatch(setUpdateMenu(fullUpdateMenu))
-        handleClose();
+
+        console.log('fullUpdateMenu--->: ', {...fullUpdateMenu, options: { ...fullUpdateMenu?.options, allergens: allergenList}})
+        // dispatch(setUpdateMenu({...fullUpdateMenu, options: { ...fullUpdateMenu?.options, allergens: allergenList}}))
+        // handleClose();
     };
 
     // input box setting
-    const inputSettings = [
-        {
+    const inputSettings = [{
+            type: "checkList",
+            listTitle: "Allergens",
+            list: allergenList
+        },{
             type: "text",
             name: "title", 
             defaultValue: title,
@@ -107,16 +121,27 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                         />
                             
                         {
-                            inputSettings.map((inputSetting, index)=>
-                                <MuiInputField
-                                    key={`${index}-inputsetting`}
-                                    {...inputSetting}
-                                    bgColor="#fff"
-                                    name={inputSetting.name}
-                                    label={inputSetting.placeholder}
-                                    onChange={ formInputChange }/>
-                            )
-                        }
+                            inputSettings.map((inputSetting, index)=>{
+                                if(inputSetting.type === "checkList"){
+                                    return (
+                                        <MuiCheckboxList 
+                                            {...inputSetting} 
+                                            handleChange={AddMenuItemHandleChange}
+                                            CheckBoxState={inputSetting.list}
+                                            setCheckBoxStateUpdate={setAllergenList}/>
+                                    )
+                                }
+                                if(inputSetting.type === "text"){
+                                    return(
+                                        <MuiInputField
+                                            key={`${index}-inputsetting`}
+                                            {...inputSetting}
+                                            bgColor="#fff"
+                                            name={inputSetting.name}
+                                            label={inputSetting.placeholder}
+                                            onChange={ formInputChange }/>)
+                                }
+                        })}
                         <SubmitButton  
                             label="SUBMIT UPDATE"
                             onClick={ handleSubmitEdit }/>

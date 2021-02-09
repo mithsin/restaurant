@@ -9,23 +9,29 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import Modal from '@material-ui/core/Modal';
 import './styles.scss';
-
-const initItemState = {
-    imgSrc: '',
-    itemNumber: '',
-    title: '',
-    description: '',
-    price: '',
-}
+import {
+    allergenListDefault,
+    sizeListDefault,
+    addOnsDefault,
+    spicyDefault,
+    initItemState,
+    ItemToggles
+} from './FormDefault';
+import { AddMenuItemHandleChange, ToggleCheckListOnChange } from './FormSubmitFunctions';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const dispatch = useDispatch();
     const  menuState= useSelector(menuListState);
-    const [formInputs, setFormInputs] = useState({...initItemState});
     const [imageURL, setImageURL] = useState('');
     const [inputError, setInputError] = useState(false);
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
-    const [allergenList, setAllergenList] = useState([])
+    const [toggles, setToggles] = useState(ItemToggles)
+    const [formInputs, setFormInputs] = useState({...initItemState});
+    const [allergenList, setAllergenList] = useState(allergenListDefault);
+    const [sizeList, setSizeList] = useState(sizeListDefault);
+
     useEffect(()=>{
         if(imageURL){
             setFormInputs({
@@ -34,7 +40,6 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
             })
         }
     },[imageURL])
-
     const formInputChange = (e) => {
         if(e.target.name === 'itemNumber'){
             setInputError(false)
@@ -66,6 +71,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
             // dispatch(setAddNewMenuCategory(fullMenu));
             // setFormInputs({});
             // setImageURL('');
+            // setAllergenList(allergenListDefault)
             // handleToggle();
         } else {
             // console.log('item number already exist')
@@ -77,17 +83,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const inputSettings = [{
         type: "checkList",
         listTitle: "Allergens",
-        list: [
-            {title: "milk", on: false},
-            {title: "egg", on: false},
-            {title: "fish", on: false},
-            {title: "shellfish", on: false},
-            {title: "peanuts", on: false},
-            {title: "wheat", on: false},
-            {title: "soybeans", on: false},
-            {title: "garlic", on: false},
-            {title: "onion", on: false},
-        ]
+        list: allergenList
     },{
         type: "text",
         name: "itemNumber",
@@ -106,7 +102,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         name: "price",
         placeholder: "price",
     }];
-
+    console.log("toggles--->: ", toggles)
     return(
         <Modal
             open={open}
@@ -141,13 +137,32 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                         {
                             inputSettings.map((inputSetting, index)=> {
                                 if(inputSetting.type === "checkList"){
-                                    console.log('inputSetting--->: ', inputSetting)
-                                    return (
-                                        <MuiCheckboxList 
-                                            {...inputSetting} 
-                                            updateListState={inputSetting.list} 
-                                            setUpdateListState={setAllergenList}/>
-                                    )
+                                    if(toggles?.allergenToggle?.on === true) {
+                                        return (
+                                            <MuiCheckboxList 
+                                                {...inputSetting}
+                                                handleChange={AddMenuItemHandleChange}
+                                                checkBoxState={inputSetting.list}
+                                                setCheckBoxStateUpdate={setAllergenList}/>
+                                        )
+                                    } else {
+                                        return (
+                                            <FormControlLabel
+                                                control={
+                                                <Checkbox 
+                                                    checked={toggles?.allergenToggle?.on} 
+                                                    onChange={(event)=>
+                                                        ToggleCheckListOnChange(
+                                                            event,
+                                                            toggles?.allergenToggle?.title,
+                                                            toggles?.allergenToggle?.on,
+                                                            toggles, 
+                                                            setToggles )} 
+                                                    name={toggles?.allergenToggle?.title} />}
+                                                label={toggles?.allergenToggle?.title}
+                                            />
+                                    )}
+                                    
                                 }
                                 if(inputSetting.type === "text"){
                                     return(
