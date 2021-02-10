@@ -8,13 +8,14 @@ import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { AddMenuItemHandleChange } from './FormSubmitFunctions';
+import { AddMenuItemHandleChange, ToggleCheckListOnChange } from './FormSubmitFunctions';
 import {
     allergenListDefault,
     sizeListDefault,
     addOnsDefault,
     spicyDefault,
-    initItemState
+    initItemState,
+    ItemToggles
 } from './FormDefault';
 import './styles.scss';
 
@@ -31,6 +32,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const [imageURL, setImageURL] = useState('');
     const [inputError, setInputError] = useState(false);
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
+    const [toggles, setToggles] = useState(ItemToggles);
     const [formInputs, setFormInputs] = useState({...itemDetails});
     const [allergenList, setAllergenList] = useState(allergenListDefault);
 
@@ -123,13 +125,33 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                         {
                             inputSettings.map((inputSetting, index)=>{
                                 if(inputSetting.type === "checkList"){
-                                    return (
-                                        <MuiCheckboxList 
-                                            {...inputSetting} 
-                                            handleChange={AddMenuItemHandleChange}
-                                            CheckBoxState={inputSetting.list}
-                                            setCheckBoxStateUpdate={setAllergenList}/>
-                                    )
+                                    if(toggles?.allergenToggle?.on === true) {
+                                        return (
+                                            <MuiCheckboxList 
+                                                {...inputSetting}
+                                                handleChange={AddMenuItemHandleChange}
+                                                checkBoxState={inputSetting.list}
+                                                setCheckBoxStateUpdate={setAllergenList}/>
+                                        )
+                                    } else {
+                                        return (
+                                            <FormControlLabel
+                                                control={
+                                                <Checkbox 
+                                                    checked={toggles?.allergenToggle?.on} 
+                                                    onChange={(event)=>
+                                                        ToggleCheckListOnChange(
+                                                            event,
+                                                            "allergenToggle",
+                                                            toggles?.allergenToggle?.title,
+                                                            toggles?.allergenToggle?.on,
+                                                            toggles, 
+                                                            setToggles )} 
+                                                    name={toggles?.allergenToggle?.title} />}
+                                                label={toggles?.allergenToggle?.title}
+                                            />
+                                    )}
+                                    
                                 }
                                 if(inputSetting.type === "text"){
                                     return(

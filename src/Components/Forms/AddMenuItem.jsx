@@ -27,11 +27,10 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const [imageURL, setImageURL] = useState('');
     const [inputError, setInputError] = useState(false);
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
-    const [toggles, setToggles] = useState(ItemToggles)
+    const [toggles, setToggles] = useState(ItemToggles);
     const [formInputs, setFormInputs] = useState({...initItemState});
     const [allergenList, setAllergenList] = useState(allergenListDefault);
     const [sizeList, setSizeList] = useState(sizeListDefault);
-
     useEffect(()=>{
         if(imageURL){
             setFormInputs({
@@ -154,6 +153,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                                                     onChange={(event)=>
                                                         ToggleCheckListOnChange(
                                                             event,
+                                                            "allergenToggle",
                                                             toggles?.allergenToggle?.title,
                                                             toggles?.allergenToggle?.on,
                                                             toggles, 

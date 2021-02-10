@@ -10,7 +10,7 @@ export const AddMenuItemHandleChange = (event, state, setStateUpdate, ) => {
     setStateUpdate(updateState);
 };
 
-export const ToggleCheckListOnChange = (event, stateTitle, stateOn, state, setStateUpdate, ) => {
+export const ToggleCheckListOnChange = (event, listTitle, stateTitle, stateOn, state, setStateUpdate, ) => {
     
-    setStateUpdate({...state, on: !state});
+    setStateUpdate({...state, [listTitle]: { title: stateTitle, on: !stateOn}});
 };
