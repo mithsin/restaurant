@@ -120,7 +120,7 @@ const Cart = ({}) => {
                     <TextField required name="phoneNumber" id="Checkout-PhoneNumber" label="Phone Number" onChange={buyerInputChange} />
                     <TextField name="eMail" id="Checkout-EMail" label="E-Mail" onChange={buyerInputChange} />
                 </FormControl>
-                <AliPayBtn buyerDetails={ buyerDetails } />
+                {/* <AliPayBtn buyerDetails={ buyerDetails } /> */}
                 <SplitStripeForm 
                     disableCheckout={ disableCheckout }
                     itemDetails={ cartOrderList }

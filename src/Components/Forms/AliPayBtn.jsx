@@ -26,22 +26,6 @@ const AliPayBtn = ({buyerDetails}) => {
         }
     },[paymentStatus])
 
-    // var elements = stripe.elements();
-
-    // const handleOnClickAliPay = async() => {
-    //     const response = await axios.get(`${process.env.REACT_APP_API_STRIPE_ALIPAY}`);
-
-    //     response.json()
-    //         .then(res => {
-    //             console.log("alipay-all-->: ", res);
-    //         if(res.statusCode === 200){
-    //             console.log("alipay--->: ", res.paid_status)
-    //         } else {
-    //             console.log("not 200, something else is wrong")
-    //         }})
-    //         .catch(err=> err)
-    // }
-
     // create AliPay source
     const handleOnClickAliPay = () => {
         stripe.createSource({
