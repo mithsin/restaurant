@@ -127,11 +127,28 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                 if(inputSetting.type === "checkList"){
                                     if(toggles?.allergenToggle?.on === true) {
                                         return (
+                                            <>
+                                            <FormControlLabel
+                                                control={
+                                                <Checkbox 
+                                                    checked={toggles?.allergenToggle?.on} 
+                                                    onChange={(event)=>
+                                                        ToggleCheckListOnChange(
+                                                            event,
+                                                            "allergenToggle",
+                                                            toggles?.allergenToggle?.title,
+                                                            toggles?.allergenToggle?.on,
+                                                            toggles, 
+                                                            setToggles )} 
+                                                    name={toggles?.allergenToggle?.title} />}
+                                                label={toggles?.allergenToggle?.title}
+                                            />
                                             <MuiCheckboxList 
                                                 {...inputSetting}
                                                 handleChange={AddMenuItemHandleChange}
                                                 checkBoxState={inputSetting.list}
                                                 setCheckBoxStateUpdate={setAllergenList}/>
+                                            </>
                                         )
                                     } else {
                                         return (
