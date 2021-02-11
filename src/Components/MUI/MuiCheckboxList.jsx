@@ -6,7 +6,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { CostExplorer } from 'aws-sdk';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const MuiCheckboxList = ({checkBoxState, setCheckBoxStateUpdate, handleChange, listTitle, helpText}) => {
   const classes = useStyles();
-  console.log('CheckBoxState--->: ', checkBoxState)
   const handleChangeFunction = (event) => handleChange(event, checkBoxState, setCheckBoxStateUpdate);
   const FormControllerLabelTemplate = ({title, on}) => (
     <FormControlLabel

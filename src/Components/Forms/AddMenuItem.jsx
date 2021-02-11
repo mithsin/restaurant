@@ -17,9 +17,7 @@ import {
     initItemState,
     ItemToggles
 } from './FormDefault';
-import { AddMenuItemHandleChange, ToggleCheckListOnChange } from './FormSubmitFunctions';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import { AddMenuItemHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 
 const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const dispatch = useDispatch();
@@ -101,7 +99,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         name: "price",
         placeholder: "price",
     }];
-    console.log("toggles--->: ", toggles)
+    
     return(
         <Modal
             open={open}
@@ -132,54 +130,23 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                                 label="image link"
                                 onChange={(e)=> setImageURL(e.target.value)}/>}
                         {inputError && <h2 style={{color: 'red'}}>This item number already exist</h2>}
-                            
+                        {
+                            <div className="Toggle-Block">
+                                {toggleForLoopList(toggles, setToggles)}
+                            </div>
+                        }
                         {
                             inputSettings.map((inputSetting, index)=> {
                                 if(inputSetting.type === "checkList"){
                                     if(toggles?.allergenToggle?.on === true) {
                                         return (
-                                            <>
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox 
-                                                    checked={toggles?.allergenToggle?.on} 
-                                                    onChange={(event)=>
-                                                        ToggleCheckListOnChange(
-                                                            event,
-                                                            "allergenToggle",
-                                                            toggles?.allergenToggle?.title,
-                                                            toggles?.allergenToggle?.on,
-                                                            toggles, 
-                                                            setToggles )} 
-                                                    name={toggles?.allergenToggle?.title} />}
-                                                label={toggles?.allergenToggle?.title}
-                                            />
                                             <MuiCheckboxList 
                                                 {...inputSetting}
                                                 handleChange={AddMenuItemHandleChange}
                                                 checkBoxState={inputSetting.list}
                                                 setCheckBoxStateUpdate={setAllergenList}/>
-                                            </>
                                         )
-                                    } else {
-                                        return (
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox 
-                                                    checked={toggles?.allergenToggle?.on} 
-                                                    onChange={(event)=>
-                                                        ToggleCheckListOnChange(
-                                                            event,
-                                                            "allergenToggle",
-                                                            toggles?.allergenToggle?.title,
-                                                            toggles?.allergenToggle?.on,
-                                                            toggles, 
-                                                            setToggles )} 
-                                                    name={toggles?.allergenToggle?.title} />}
-                                                label={toggles?.allergenToggle?.title}
-                                            />
-                                    )}
-                                    
+                                    } 
                                 }
                                 if(inputSetting.type === "text"){
                                     return(

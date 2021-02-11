@@ -8,7 +8,7 @@ import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { AddMenuItemHandleChange, ToggleCheckListOnChange } from './FormSubmitFunctions';
+import { AddMenuItemHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 import {
     allergenListDefault,
     sizeListDefault,
@@ -121,54 +121,23 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                     name="itemDisable" />}
                             label="Disable"
                         />
-                            
+                        {
+                            <div className="Toggle-Block">
+                                {toggleForLoopList(toggles, setToggles)}
+                            </div>
+                        }
                         {
                             inputSettings.map((inputSetting, index)=>{
                                 if(inputSetting.type === "checkList"){
                                     if(toggles?.allergenToggle?.on === true) {
                                         return (
-                                            <>
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox 
-                                                    checked={toggles?.allergenToggle?.on} 
-                                                    onChange={(event)=>
-                                                        ToggleCheckListOnChange(
-                                                            event,
-                                                            "allergenToggle",
-                                                            toggles?.allergenToggle?.title,
-                                                            toggles?.allergenToggle?.on,
-                                                            toggles, 
-                                                            setToggles )} 
-                                                    name={toggles?.allergenToggle?.title} />}
-                                                label={toggles?.allergenToggle?.title}
-                                            />
                                             <MuiCheckboxList 
                                                 {...inputSetting}
                                                 handleChange={AddMenuItemHandleChange}
                                                 checkBoxState={inputSetting.list}
                                                 setCheckBoxStateUpdate={setAllergenList}/>
-                                            </>
                                         )
-                                    } else {
-                                        return (
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox 
-                                                    checked={toggles?.allergenToggle?.on} 
-                                                    onChange={(event)=>
-                                                        ToggleCheckListOnChange(
-                                                            event,
-                                                            "allergenToggle",
-                                                            toggles?.allergenToggle?.title,
-                                                            toggles?.allergenToggle?.on,
-                                                            toggles, 
-                                                            setToggles )} 
-                                                    name={toggles?.allergenToggle?.title} />}
-                                                label={toggles?.allergenToggle?.title}
-                                            />
-                                    )}
-                                    
+                                    }
                                 }
                                 if(inputSetting.type === "text"){
                                     return(

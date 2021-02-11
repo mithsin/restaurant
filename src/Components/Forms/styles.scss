@@ -57,6 +57,10 @@
         }
     }
 }
+.Toggle-Block {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 // form error
 .inputError {

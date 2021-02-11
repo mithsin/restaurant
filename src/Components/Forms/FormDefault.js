@@ -64,5 +64,5 @@ export const ItemToggles = {
     spicyDefaultToggle: {
         title: "Spicy?",
         on: false
-    },
+    }
 }
