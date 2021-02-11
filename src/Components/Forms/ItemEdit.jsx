@@ -65,8 +65,14 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const handleSubmitEdit = () => {
         const fullUpdateMenu = (formInputs.itemDisable === undefined) ? {...formInputs, itemDisable: false} : formInputs;
 
-        console.log('fullUpdateMenu--->: ', {...fullUpdateMenu, options: { ...fullUpdateMenu?.options, allergens: allergenList}})
-        // dispatch(setUpdateMenu({...fullUpdateMenu, options: { ...fullUpdateMenu?.options, allergens: allergenList}}))
+        const isAllergenListOn = () => {
+            for (var item in allergenList){
+                if(allergenList[item]?.on === true) return true;
+            }
+        }
+
+        console.log('fullUpdateMenu--->: ', {...fullUpdateMenu, options: { ...fullUpdateMenu?.options, ...(isAllergenListOn() && {allergens: allergenList})}})
+        // dispatch(setUpdateMenu({...fullUpdateMenu, options: { ...fullUpdateMenu?.options, ...(isAllergenListOn() && {allergens: allergenList})}}))
         // handleClose();
     };
 
@@ -132,6 +138,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                     if(toggles?.allergenToggle?.on === true) {
                                         return (
                                             <MuiCheckboxList 
+                                                key={`${index}-inputsetting`}
                                                 {...inputSetting}
                                                 handleChange={AddMenuItemHandleChange}
                                                 checkBoxState={inputSetting.list}

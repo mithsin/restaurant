@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { menuListState, setAddNewMenuCategory } from 'States/menuSlice';
-import { MuiInputField, MuiCheckboxList } from 'Components/MUI';
+import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
 import { EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,7 @@ import {
     initItemState,
     ItemToggles
 } from './FormDefault';
-import { AddMenuItemHandleChange, toggleForLoopList } from './FormSubmitFunctions';
+import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 
 const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const dispatch = useDispatch();
@@ -53,14 +53,29 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         }
     };
 
+    
+
+
     const handleSubmitEdit = () => {
         const checkItemNumberExist = formInputs?.itemNumber && (thisCategory.menuList.find(item => item.itemNumber === formInputs?.itemNumber) !== undefined);
+
+        const isAllergenListOn = () => {
+            for (var item in allergenList){
+                if(allergenList[item]?.on === true) return true;
+            }
+        }
+
         if(!checkItemNumberExist){
             const fullMenu = menuState.map((category)=>
                 (category.title === thisCategory.title)
                     ?  {
                         ...category,
-                        menuList: category.menuList.concat([{...formInputs, options: {...formInputs?.options, allergens: allergenList}}])
+                        menuList: category.menuList.concat([{...formInputs, 
+                            options: {
+                                ...formInputs?.options,
+                                ...(isAllergenListOn() && {allergens: allergenList})
+                            }
+                        }])
                     }
                     : category
             );
@@ -74,13 +89,21 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
             // console.log('item number already exist')
             setInputError(true)
         }
-
     };
 
     const inputSettings = [{
         type: "checkList",
         listTitle: "Allergens",
-        list: allergenList
+        list: allergenList,
+        handleChange: AddMenuItemHandleChange,
+        setChangeTrigger: setAllergenList,
+    },{
+        type: "checkList",
+        listTitle: "Sizes",
+        list: sizeList,
+        handleChange: SizeHandleChange,
+        setChangeTrigger: setSizeList,
+        inputHandleChange: SizeInputHandleChange
     },{
         type: "text",
         name: "itemNumber",
@@ -138,13 +161,25 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                         {
                             inputSettings.map((inputSetting, index)=> {
                                 if(inputSetting.type === "checkList"){
-                                    if(toggles?.allergenToggle?.on === true) {
+                                    if(toggles?.allergenToggle?.on === true && inputSetting.listTitle === "Allergens") {
                                         return (
-                                            <MuiCheckboxList 
+                                            <MuiCheckboxList
+                                                key={`inputsetting-${index}`}
                                                 {...inputSetting}
-                                                handleChange={AddMenuItemHandleChange}
+                                                handleChange={inputSetting.handleChange}
                                                 checkBoxState={inputSetting.list}
-                                                setCheckBoxStateUpdate={setAllergenList}/>
+                                                setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
+                                        )
+                                    }
+                                    if(toggles?.sizeListToggle?.on === true && inputSetting.listTitle === "Sizes") {
+                                        return (
+                                            <MuiCheckboxListWithCheckedInput
+                                                key={`inputsetting-${index}`}
+                                                {...inputSetting}
+                                                inputHandleChange={inputSetting.inputHandleChange}
+                                                handleChange={inputSetting.handleChange}
+                                                checkBoxState={inputSetting.list}
+                                                setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
                                         )
                                     } 
                                 }

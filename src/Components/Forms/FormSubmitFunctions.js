@@ -13,6 +13,32 @@ export const AddMenuItemHandleChange = (event, state, setStateUpdate, ) => {
     setStateUpdate(updateState);
 };
 
+export const SizeHandleChange = (event, state, setStateUpdate, ) => {
+  const updateState = state.map((item)=> {
+    if(item.title === event.target.name){
+      return (
+        {...item, title: event.target.name, on: (event.target.checked ? true : false )})
+    } else { 
+      return item
+    }
+  })
+  setStateUpdate(updateState);
+};
+export const SizeInputHandleChange = (event, list, title, state, setStateUpdate) => {
+  const inputUpdates = {
+    ...list,
+    ...((title === "price") ? {[title]: event.target.value} : {[title]: event.target.value})
+  }
+    const updateState = state.map((item)=> {
+      if(item.title === event.target.name){
+        return (inputUpdates)
+      } else { 
+        return item
+      }
+    })
+  setStateUpdate(updateState);
+};
+
 export const ToggleCheckListOnChange = (event, listTitle, stateTitle, stateOn, state, setStateUpdate, ) => {
     
     setStateUpdate({...state, [listTitle]: { title: stateTitle, on: !stateOn}});

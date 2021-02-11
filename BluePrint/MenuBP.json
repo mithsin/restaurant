@@ -11,20 +11,30 @@
             "itemDisable": false,
             "options": {
                 "sizes": [{
-                      "s": {
-                          "price": 9.99,
-                          "detail": "Small details"
-                        }
-                    },{
-                      "m": {
-                          "price": 10.89,
-                          "detail": "Medium details"
-                      }
-                    },{
-                      "l": {
-                          "price": 11.99,
-                          "detail": "Large details"
-                      }
+                    "title": "XS",
+                    "on": false,
+                    "price": 0,
+                    "detail": "XSmall details"
+                  },{
+                    "title": "S",
+                    "on": false,
+                    "price": 0,
+                    "detail": "Small details"
+                  },{
+                    "title": "M",
+                    "on": false,
+                    "price": 0,
+                    "detail": "Medium details"
+                  },{
+                    "title": "L",
+                    "on": false,
+                    "price": 0,
+                    "detail": "Large details"
+                  },{
+                    "title": "XL",
+                    "on": false,
+                    "price": 0,
+                    "detail": "XLarge details"
                 }],
                 "add-on": [{
                     "name": "bubble",

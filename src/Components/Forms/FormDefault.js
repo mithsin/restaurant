@@ -19,21 +19,31 @@ export const allergenListDefault = [
 ];
 
 export const sizeListDefault = [{
-    s: {
-        price: 0,
-        detail: "Small details"
-      }
+    title: "XS",
+    on: false,
+    price: 0,
+    detail: "XSmall details"
   },{
-    m: {
-        price: 0,
-        detail: "Medium details"
-    }
+    title: "S",
+    on: false,
+    price: 0,
+    detail: "Small details"
   },{
-    l: {
-        price: 0,
-        detail: "Large details"
-    }
-}];
+    title: "M",
+    on: false,
+    price: 0,
+    detail: "Medium details"
+  },{
+    title: "L",
+    on: false,
+    price: 0,
+    detail: "Large details"
+  },{
+    title: "XL",
+    on: false,
+    price: 0,
+    detail: "XLarge details"
+}]
 
 export const addOnsDefault = [{
     name: "add on item name",
