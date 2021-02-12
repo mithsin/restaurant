@@ -29,6 +29,8 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const [formInputs, setFormInputs] = useState({...initItemState});
     const [allergenList, setAllergenList] = useState(allergenListDefault);
     const [sizeList, setSizeList] = useState(sizeListDefault);
+    const [addOnList, setAddOnList] = useState([]);
+
     useEffect(()=>{
         if(imageURL){
             setFormInputs({
@@ -53,9 +55,6 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         }
     };
 
-    
-
-
     const handleSubmitEdit = () => {
         const checkItemNumberExist = formInputs?.itemNumber && (thisCategory.menuList.find(item => item.itemNumber === formInputs?.itemNumber) !== undefined);
 
@@ -64,7 +63,9 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                 if(allergenList[item]?.on === true) return true;
             }
         }
-
+        const isSizeListOn = sizeList.find(size => 
+            (size.on === true) ? true : false
+        )
         if(!checkItemNumberExist){
             const fullMenu = menuState.map((category)=>
                 (category.title === thisCategory.title)
@@ -73,7 +74,8 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                         menuList: category.menuList.concat([{...formInputs, 
                             options: {
                                 ...formInputs?.options,
-                                ...(isAllergenListOn() && {allergens: allergenList})
+                                ...(isAllergenListOn() && {allergens: allergenList}),
+                                ...(isSizeListOn !== undefined && {sizes: sizeList})
                             }
                         }])
                     }

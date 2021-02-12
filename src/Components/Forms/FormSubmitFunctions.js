@@ -27,7 +27,7 @@ export const SizeHandleChange = (event, state, setStateUpdate, ) => {
 export const SizeInputHandleChange = (event, list, title, state, setStateUpdate) => {
   const inputUpdates = {
     ...list,
-    ...((title === "price") ? {[title]: event.target.value} : {[title]: event.target.value})
+    ...((title === "price") ? {[title]: parseInt(event.target.value)} : {[title]: event.target.value})
   }
     const updateState = state.map((item)=> {
       if(item.title === event.target.name){

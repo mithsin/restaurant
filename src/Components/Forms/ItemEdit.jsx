@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { setUpdateMenu } from 'States/menuSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MuiInputField, MuiCheckboxList } from 'Components/MUI';
+import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { AddMenuItemHandleChange, toggleForLoopList } from './FormSubmitFunctions';
+import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 import {
     allergenListDefault,
     sizeListDefault,
@@ -34,7 +34,8 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
     const [toggles, setToggles] = useState(ItemToggles);
     const [formInputs, setFormInputs] = useState({...itemDetails});
-    const [allergenList, setAllergenList] = useState(allergenListDefault);
+    const [allergenList, setAllergenList] = useState(itemDetails?.options?.allergenList || allergenListDefault);
+    const [sizeList, setSizeList] = useState(itemDetails?.options?.sizes || sizeListDefault);
 
     useEffect(()=>{
         if(imageURL){
@@ -65,23 +66,48 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const handleSubmitEdit = () => {
         const fullUpdateMenu = (formInputs.itemDisable === undefined) ? {...formInputs, itemDisable: false} : formInputs;
 
+        const isSizeListOn = sizeList.find(size => 
+            (size.on === true) ? true : false
+        )
+
         const isAllergenListOn = () => {
             for (var item in allergenList){
                 if(allergenList[item]?.on === true) return true;
             }
         }
 
-        console.log('fullUpdateMenu--->: ', {...fullUpdateMenu, options: { ...fullUpdateMenu?.options, ...(isAllergenListOn() && {allergens: allergenList})}})
-        // dispatch(setUpdateMenu({...fullUpdateMenu, options: { ...fullUpdateMenu?.options, ...(isAllergenListOn() && {allergens: allergenList})}}))
+        console.log('fullUpdateMenu--->: ', {
+            ...fullUpdateMenu, 
+            options: { 
+                ...fullUpdateMenu?.options, 
+                ...(isAllergenListOn() && {allergens: allergenList}),
+                ...(isSizeListOn !== undefined && {sizes: sizeList})
+            }})
+        // dispatch(setUpdateMenu({
+            // ...fullUpdateMenu, 
+            // options: { 
+            //     ...fullUpdateMenu?.options, 
+            //     ...(isAllergenListOn() && {allergens: allergenList}),
+            //     ...(isSizeListOn !== undefined && {sizes: sizeList})
+            // }}))
         // handleClose();
     };
 
     // input box setting
     const inputSettings = [{
-            type: "checkList",
-            listTitle: "Allergens",
-            list: allergenList
-        },{
+        type: "checkList",
+        listTitle: "Allergens",
+        list: allergenList,
+        handleChange: AddMenuItemHandleChange,
+        setChangeTrigger: setAllergenList,
+    },{
+        type: "checkList",
+        listTitle: "Sizes",
+        list: sizeList,
+        handleChange: SizeHandleChange,
+        setChangeTrigger: setSizeList,
+        inputHandleChange: SizeInputHandleChange
+    },{
             type: "text",
             name: "title", 
             defaultValue: title,
@@ -135,16 +161,27 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                         {
                             inputSettings.map((inputSetting, index)=>{
                                 if(inputSetting.type === "checkList"){
-                                    if(toggles?.allergenToggle?.on === true) {
+                                    if(toggles?.allergenToggle?.on === true && inputSetting.listTitle === "Allergens") {
                                         return (
-                                            <MuiCheckboxList 
-                                                key={`${index}-inputsetting`}
+                                            <MuiCheckboxList
+                                                key={`inputsetting-${index}`}
                                                 {...inputSetting}
-                                                handleChange={AddMenuItemHandleChange}
+                                                handleChange={inputSetting.handleChange}
                                                 checkBoxState={inputSetting.list}
-                                                setCheckBoxStateUpdate={setAllergenList}/>
+                                                setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
                                         )
                                     }
+                                    if(toggles?.sizeListToggle?.on === true && inputSetting.listTitle === "Sizes") {
+                                        return (
+                                            <MuiCheckboxListWithCheckedInput
+                                                key={`inputsetting-${index}`}
+                                                {...inputSetting}
+                                                inputHandleChange={inputSetting.inputHandleChange}
+                                                handleChange={inputSetting.handleChange}
+                                                checkBoxState={inputSetting.list}
+                                                setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
+                                        )
+                                    } 
                                 }
                                 if(inputSetting.type === "text"){
                                     return(

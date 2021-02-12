@@ -39,14 +39,14 @@ const MuiCheckboxListWithCheckedInput = ({checkBoxState, setCheckBoxStateUpdate,
             checked={on} 
             onChange={handleChangeFunction} 
             name={title} />}
-        label={title}
+        label={`${title} - ${on ? 'on' : 'off'}`}
     />
   );
 
 const inputListBlockRender = (item) => {
     const inputBlock = [];
     for ( const info in item ){
-      console.log('info-->: ', info)
+      // console.log('info-->: ', info)
 
       if(info !== "title" && info !== "on"){
         inputBlock.push(
