@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { menuListState, setAddNewMenuCategory } from 'States/menuSlice';
 import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
-import { EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
+import { SubmitButton, EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import ImageUpload from 'Components/ImageUpload/ImageUpload';
 import Modal from '@material-ui/core/Modal';
 import './styles.scss';
 import {
@@ -18,6 +18,7 @@ import {
     ItemToggles
 } from './FormDefault';
 import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from './FormSubmitFunctions';
+import AddOnBlock from 'Components/Forms/Components/AddOnBlock';
 
 const AddMenuItem = ({thisCategory, open, handleToggle}) => {
     const dispatch = useDispatch();
@@ -75,7 +76,10 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                             options: {
                                 ...formInputs?.options,
                                 ...(isAllergenListOn() && {allergens: allergenList}),
-                                ...(isSizeListOn !== undefined && {sizes: sizeList})
+                                ...(isSizeListOn !== undefined && {sizes: sizeList}),
+                                ...(addOnList?.length > 0 && {
+                                    ['add-on']: addOnList
+                                })
                             }
                         }])
                     }
@@ -107,6 +111,11 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         setChangeTrigger: setSizeList,
         inputHandleChange: SizeInputHandleChange
     },{
+        type: "checkList",
+        listTitle: "Add-on",
+        list: addOnList,
+        setChangeTrigger: setAddOnList,
+    },{
         type: "text",
         name: "itemNumber",
         placeholder: "itemNumber",
@@ -124,6 +133,8 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         name: "price",
         placeholder: "price",
     }];
+
+    console.log('toggles--->: ', toggles)
     
     return(
         <Modal
@@ -183,7 +194,15 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                                                 checkBoxState={inputSetting.list}
                                                 setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
                                         )
-                                    } 
+                                    }
+                                    if(toggles?.addOnsToggle?.on === true && inputSetting.listTitle === "Add-on") {
+                                        return (
+                                            <AddOnBlock 
+                                                addOnList={addOnList}
+                                                setAddOnList={setAddOnList}
+                                            /> 
+                                        )
+                                    }  
                                 }
                                 if(inputSetting.type === "text"){
                                     return(
@@ -196,7 +215,7 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                                             onChange={ formInputChange }/>)
                                 }
                         })}
-                        <EditButton 
+                        <SubmitButton 
                             label="ADD ITEM"
                             disabled={ inputError }
                             onClick={ handleSubmitEdit }/>

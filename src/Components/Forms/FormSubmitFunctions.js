@@ -1,5 +1,6 @@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { ItemToggles } from './FormDefault';
 
 export const AddMenuItemHandleChange = (event, state, setStateUpdate, ) => {
     const updateState = state.map((item)=> {
@@ -39,10 +40,16 @@ export const SizeInputHandleChange = (event, list, title, state, setStateUpdate)
   setStateUpdate(updateState);
 };
 
+// Can open multiple check list
 export const ToggleCheckListOnChange = (event, listTitle, stateTitle, stateOn, state, setStateUpdate, ) => {
-    
     setStateUpdate({...state, [listTitle]: { title: stateTitle, on: !stateOn}});
 };
+
+// Open one check item at a time
+export const ToggleOneCheckListOnChange = (event, listTitle, stateTitle, stateOn, state, setStateUpdate, ) => {
+  setStateUpdate({...ItemToggles, [listTitle]: { title: stateTitle, on: !stateOn}});
+};
+
 
 export const toggleForLoopList = (toggleListObj, setToggles) => {
   const displayToggleList = [];
@@ -52,13 +59,13 @@ export const toggleForLoopList = (toggleListObj, setToggles) => {
           <Checkbox 
               checked={toggleListObj[item]?.on} 
               onChange={(event)=>
-                  ToggleCheckListOnChange(
-                      event,
-                      `${item}`,
-                      toggleListObj[item]?.title,
-                      toggleListObj[item]?.on,
-                      toggleListObj, 
-                      setToggles )} 
+                ToggleOneCheckListOnChange(
+                  event,
+                  `${item}`,
+                  toggleListObj[item]?.title,
+                  toggleListObj[item]?.on,
+                  toggleListObj, 
+                  setToggles )} 
               name={toggleListObj[item]?.title} />}
           label={toggleListObj[item]?.title}
       />)

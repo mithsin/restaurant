@@ -7,6 +7,7 @@ import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import AddOnBlock from 'Components/Forms/Components/AddOnBlock';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 import {
@@ -36,6 +37,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const [formInputs, setFormInputs] = useState({...itemDetails});
     const [allergenList, setAllergenList] = useState(itemDetails?.options?.allergenList || allergenListDefault);
     const [sizeList, setSizeList] = useState(itemDetails?.options?.sizes || sizeListDefault);
+    const [addOnList, setAddOnList] = useState(itemDetails?.options?.['add-on']);
 
     useEffect(()=>{
         if(imageURL){
@@ -95,19 +97,24 @@ const ItemEdit = ({itemDetails, handleClose}) => {
 
     // input box setting
     const inputSettings = [{
-        type: "checkList",
-        listTitle: "Allergens",
-        list: allergenList,
-        handleChange: AddMenuItemHandleChange,
-        setChangeTrigger: setAllergenList,
-    },{
-        type: "checkList",
-        listTitle: "Sizes",
-        list: sizeList,
-        handleChange: SizeHandleChange,
-        setChangeTrigger: setSizeList,
-        inputHandleChange: SizeInputHandleChange
-    },{
+            type: "checkList",
+            listTitle: "Allergens",
+            list: allergenList,
+            handleChange: AddMenuItemHandleChange,
+            setChangeTrigger: setAllergenList,
+        },{
+            type: "checkList",
+            listTitle: "Sizes",
+            list: sizeList,
+            handleChange: SizeHandleChange,
+            setChangeTrigger: setSizeList,
+            inputHandleChange: SizeInputHandleChange
+        },{
+            type: "checkList",
+            listTitle: "Add-on",
+            list: addOnList,
+            setChangeTrigger: setAddOnList,
+        },{
             type: "text",
             name: "title", 
             defaultValue: title,
@@ -181,7 +188,15 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                                 checkBoxState={inputSetting.list}
                                                 setCheckBoxStateUpdate={inputSetting.setChangeTrigger}/>
                                         )
-                                    } 
+                                    }
+                                    if(toggles?.addOnsToggle?.on === true && inputSetting.listTitle === "Add-on") {
+                                        return (
+                                            <AddOnBlock 
+                                                addOnList={addOnList}
+                                                setAddOnList={setAddOnList}
+                                            /> 
+                                        )
+                                    }
                                 }
                                 if(inputSetting.type === "text"){
                                     return(

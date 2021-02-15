@@ -1,0 +1,23 @@
+.AddOnBlock-Wrapper {
+    margin: 1rem 0;
+    border: 1px dotted gray;
+    padding: 1rem;
+}
+// .AddOnItemList-Wrap {
+    
+// }
+.AddOnItem-Wrap {
+    border-bottom: 1px solid black;
+    margin-bottom: .5rem;
+    display: flex;
+    justify-content: space-between;
+    .AddOnItem-Name {
+        flex: 1 2 33%;
+    }
+    .AddOnItem-price {
+        flex: 1 2 33%;
+    }
+    .AddOnItem-details {
+        flex: 2 1 33%;
+    }
+}

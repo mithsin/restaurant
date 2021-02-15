@@ -41,11 +41,6 @@
                     "price": 0.5,
                     "details": "bubble details"
                 }],
-                "spicy": {
-                    "isSpicy": false,
-                    "level": 3,
-                    "optional": true
-                },
                 "allergens": {
                   "milk": false,
                   "egg": false,
@@ -55,7 +50,8 @@
                   "wheat": false,
                   "soybeans": false,
                   "garlic": false,
-                  "onion": false
+                  "onion": false,
+                  "spicy": false
                 }
             },
             "commentId": "comment-12l3ksajd91"

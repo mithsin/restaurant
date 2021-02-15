@@ -16,6 +16,7 @@ export const allergenListDefault = [
     {title: "soybeans", on: false},
     {title: "garlic", on: false},
     {title: "onion", on: false},
+    {title: "spicy", on: false},
 ];
 
 export const sizeListDefault = [{
@@ -69,10 +70,6 @@ export const ItemToggles = {
     },
     addOnsToggle: {
         title: "Add-On List",
-        on: false
-    },
-    spicyDefaultToggle: {
-        title: "Spicy?",
         on: false
     }
 }
