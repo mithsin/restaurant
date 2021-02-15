@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUpdateMenu } from 'States/menuSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
@@ -13,9 +12,6 @@ import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggl
 import {
     allergenListDefault,
     sizeListDefault,
-    addOnsDefault,
-    spicyDefault,
-    initItemState,
     ItemToggles
 } from './FormDefault';
 import './styles.scss';
@@ -83,7 +79,10 @@ const ItemEdit = ({itemDetails, handleClose}) => {
             options: { 
                 ...fullUpdateMenu?.options, 
                 ...(isAllergenListOn() && {allergens: allergenList}),
-                ...(isSizeListOn !== undefined && {sizes: sizeList})
+                ...(isSizeListOn !== undefined && {sizes: sizeList}),
+                ...(addOnList?.length > 0 && {
+                    ['add-on']: addOnList
+                })
             }})
         // dispatch(setUpdateMenu({
             // ...fullUpdateMenu, 
@@ -91,6 +90,9 @@ const ItemEdit = ({itemDetails, handleClose}) => {
             //     ...fullUpdateMenu?.options, 
             //     ...(isAllergenListOn() && {allergens: allergenList}),
             //     ...(isSizeListOn !== undefined && {sizes: sizeList})
+                // ...(addOnList?.length > 0 && {
+                //     ['add-on']: addOnList
+                // })
             // }}))
         // handleClose();
     };

@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  sizeIndividualWrap: {
+    display: 'flex',
+    marginBottom: '.5rem',
+    alignItems: 'center',
+  },
   formControlLabel: {
     paddingRight: '1rem',
     '&:hover': {
@@ -69,10 +74,10 @@ const inputListBlockRender = (item) => {
         <FormGroup className={classes.listRoot}>
           {
             checkBoxState.map((item, index)=>
-              <>
-              <FormControllerLabelTemplate key={`check-list-${index}`} {...item}/>
-              { item?.on === true && inputListBlockRender(item) }
-              </>
+              <div className={classes.sizeIndividualWrap}>
+                <FormControllerLabelTemplate key={`check-list-${index}`} {...item}/>
+                { item?.on === true && inputListBlockRender(item) }
+              </div>
             )
           }
         </FormGroup>

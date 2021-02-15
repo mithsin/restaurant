@@ -12,8 +12,6 @@ import './styles.scss';
 import {
     allergenListDefault,
     sizeListDefault,
-    addOnsDefault,
-    spicyDefault,
     initItemState,
     ItemToggles
 } from './FormDefault';
