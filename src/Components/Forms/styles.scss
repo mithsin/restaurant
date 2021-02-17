@@ -60,7 +60,14 @@
 }
 .Toggle-Block {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    label {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+        margin-left: 0;
+    }
 }
 
 // form error

@@ -16,7 +16,7 @@ export const allergenListDefault = [
     {title: "soybeans", on: false},
     {title: "garlic", on: false},
     {title: "onion", on: false},
-    {title: "spicy", on: false},
+    {title: "pepper", on: false},
 ];
 
 export const sizeListDefault = [{

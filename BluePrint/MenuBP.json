@@ -1,6 +1,11 @@
 {
     "menu": [
       {
+        "addOnStorages": [{
+          "name": "bubble",
+          "price": 0.5,
+          "details": "bubble details"
+        }],
         "menuList": [
           {
             "itemNumber": "A1",

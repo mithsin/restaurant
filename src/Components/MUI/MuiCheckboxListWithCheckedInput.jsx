@@ -51,14 +51,13 @@ const MuiCheckboxListWithCheckedInput = ({checkBoxState, setCheckBoxStateUpdate,
 const inputListBlockRender = (item) => {
     const inputBlock = [];
     for ( const info in item ){
-      // console.log('info-->: ', info)
-
       if(info !== "title" && info !== "on"){
         inputBlock.push(
           <MuiInputField
             bgColor="#fff"
             name={item.title}
             label={info}
+            defaultValue={item?.[info]}
             onChange={ (event)=> inputHandleChange(event, item, info, checkBoxState, setCheckBoxStateUpdate) }/>
         )
       }

@@ -8,6 +8,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import AddOnBlock from 'Components/Forms/Components/AddOnBlock';
 import ImageUpload from '../ImageUpload/ImageUpload';
+import { setUpdateMenu } from 'States/menuSlice';
+
 import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from './FormSubmitFunctions';
 import {
     allergenListDefault,
@@ -31,7 +33,7 @@ const ItemEdit = ({itemDetails, handleClose}) => {
     const [toggleUploadImg, setToggleUploadImg] = useState(true);
     const [toggles, setToggles] = useState(ItemToggles);
     const [formInputs, setFormInputs] = useState({...itemDetails});
-    const [allergenList, setAllergenList] = useState(itemDetails?.options?.allergenList || allergenListDefault);
+    const [allergenList, setAllergenList] = useState(itemDetails?.options?.allergens || allergenListDefault);
     const [sizeList, setSizeList] = useState(itemDetails?.options?.sizes || sizeListDefault);
     const [addOnList, setAddOnList] = useState(itemDetails?.options?.['add-on']);
 
@@ -74,7 +76,17 @@ const ItemEdit = ({itemDetails, handleClose}) => {
             }
         }
 
-        console.log('fullUpdateMenu--->: ', {
+        // console.log('fullUpdateMenu--->: ', {
+        //     ...fullUpdateMenu, 
+        //     options: { 
+        //         ...fullUpdateMenu?.options, 
+        //         ...(isAllergenListOn() && {allergens: allergenList}),
+        //         ...(isSizeListOn !== undefined && {sizes: sizeList}),
+        //         ...(addOnList?.length > 0 && {
+        //             ['add-on']: addOnList
+        //         })
+        //     }})
+        dispatch(setUpdateMenu({
             ...fullUpdateMenu, 
             options: { 
                 ...fullUpdateMenu?.options, 
@@ -83,18 +95,8 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                 ...(addOnList?.length > 0 && {
                     ['add-on']: addOnList
                 })
-            }})
-        // dispatch(setUpdateMenu({
-            // ...fullUpdateMenu, 
-            // options: { 
-            //     ...fullUpdateMenu?.options, 
-            //     ...(isAllergenListOn() && {allergens: allergenList}),
-            //     ...(isSizeListOn !== undefined && {sizes: sizeList})
-                // ...(addOnList?.length > 0 && {
-                //     ['add-on']: addOnList
-                // })
-            // }}))
-        // handleClose();
+            }}))
+        handleClose();
     };
 
     // input box setting
@@ -184,7 +186,6 @@ const ItemEdit = ({itemDetails, handleClose}) => {
                                         return (
                                             <MuiCheckboxListWithCheckedInput
                                                 key={`inputsetting-${index}`}
-                                                {...inputSetting}
                                                 inputHandleChange={inputSetting.inputHandleChange}
                                                 handleChange={inputSetting.handleChange}
                                                 checkBoxState={inputSetting.list}

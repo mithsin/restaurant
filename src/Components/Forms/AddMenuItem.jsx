@@ -83,12 +83,14 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
                     }
                     : category
             );
-            console.log('fullMenu-->: ', fullMenu);
-            // dispatch(setAddNewMenuCategory(fullMenu));
-            // setFormInputs({});
-            // setImageURL('');
-            // setAllergenList(allergenListDefault)
-            // handleToggle();
+            // console.log('fullMenu-->: ', fullMenu);
+            dispatch(setAddNewMenuCategory(fullMenu));
+            setFormInputs({});
+            setImageURL('');
+            setAllergenList(allergenListDefault)
+            setSizeList(sizeListDefault);
+            setAddOnList([]);
+            handleToggle();
         } else {
             // console.log('item number already exist')
             setInputError(true)
@@ -132,8 +134,6 @@ const AddMenuItem = ({thisCategory, open, handleToggle}) => {
         placeholder: "price",
     }];
 
-    console.log('toggles--->: ', toggles)
-    
     return(
         <Modal
             open={open}

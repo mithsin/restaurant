@@ -6,7 +6,7 @@ export const AddMenuItemHandleChange = (event, state, setStateUpdate, ) => {
     const updateState = state.map((item)=> {
       if(item.title === event.target.name){
         return (
-          {title: event.target.name, on: (event.target.checked ? true : false )})
+          {...item, title: event.target.name, on: (event.target.checked ? true : false )})
       } else { 
         return item
       }
@@ -28,7 +28,7 @@ export const SizeHandleChange = (event, state, setStateUpdate, ) => {
 export const SizeInputHandleChange = (event, list, title, state, setStateUpdate) => {
   const inputUpdates = {
     ...list,
-    ...((title === "price") ? {[title]: parseInt(event.target.value)} : {[title]: event.target.value})
+    ...((title === "price") ? {[title]: event.target.value} : {[title]: event.target.value})
   }
     const updateState = state.map((item)=> {
       if(item.title === event.target.name){

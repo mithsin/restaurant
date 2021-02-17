@@ -41,7 +41,7 @@ const MuiCheckboxList = ({checkBoxState, setCheckBoxStateUpdate, handleChange, l
         label={title}
     />
   );
-
+console.log('checkBoxState-->: ', checkBoxState)
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
