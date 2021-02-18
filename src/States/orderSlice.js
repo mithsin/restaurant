@@ -10,6 +10,9 @@ export const orderSlice = createSlice({
     name: 'orderState',
     initialState: initState,
     reducers: {
+        resetCart: (state, action) => {
+            state.cart = action.payload;
+        },
         setCart: (state, action) => {
             const initCart = action.payload;
             localStorage.setItem('inCart', JSON.stringify(initCart));
@@ -37,6 +40,7 @@ export const orderSlice = createSlice({
 });
 
 export const {
+    resetCart,
     setCart,
     setCartUpdate,
     setDeleteItem,
