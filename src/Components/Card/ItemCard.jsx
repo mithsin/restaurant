@@ -1,9 +1,11 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import ItemDetails from 'Components/Card/ItemDetails';
+import { v4 as uuid_v4 } from "uuid";
 import { useDispatch, useSelector } from 'react-redux';
-import { orderDetailState, setCart, setCartUpdate } from 'States/orderSlice';
+import { orderDetailState, resetCart } from 'States/orderSlice';
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
+import { handleFullUpdateAndAddToCart } from 'Constant/ConstantFunction';
 import './styles.scss';
 
 // const rand = () => {
@@ -29,11 +31,15 @@ const ItemCard = ({ item }) => {
     };
 
     const handleAddItemToCart = () => {
-        const findDetailHistory = cartOrderList.find(itm => itm.itemNumber === itemNumber);
-        findDetailHistory
-            ? dispatch(setCartUpdate({...item, orderAmount: findDetailHistory.orderAmount + 1}))
-            : dispatch(setCart(cartOrderList.concat({...item, orderAmount: 1})));
-            handleClose();
+        const cartData = {
+            ...item,
+            cartItemNumber: uuid_v4(),
+            price: price,
+            orderAmount: 1,
+            addOnSelected: []
+        };
+        dispatch(resetCart(handleFullUpdateAndAddToCart(cartData, cartOrderList)));
+        handleClose();
     };
 
     return(

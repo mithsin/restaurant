@@ -9,13 +9,12 @@ import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
 import { AddMenuItemHandleChange, SizeHandleChange, SizeInputHandleChange, toggleForLoopList } from 'Components/Forms/FormSubmitFunctions';
 import { formatArrayObjToMuiCheckboxFormat } from 'Constant/FormatArrayFunction';
-import { iconFunction } from 'Constant/ConstantFunction';
+import { iconFunction, handleFullUpdateAndAddToCart } from 'Constant/ConstantFunction';
 import { formatUpdateObjByKeyInArray } from 'Constant/FormatObjFunction';
 import './styles.scss';
 
 const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
     const dispatch = useDispatch();
-    // const cartOrderList = useSelector(orderDetailState);
     const {
         imgSrc,
         itemNumber,
@@ -24,57 +23,12 @@ const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
         price,
         options,
     } = itemDetails;
-    // allergens
     const [currentOrderAmount, setCurrentOrderAmount] = useState(1)
     const [addAddOn, setAddAddOn] = useState(
         itemDetails?.options?.['add-on']
             ? formatArrayObjToMuiCheckboxFormat(itemDetails?.options?.['add-on'])
             : []);
     const [checkoutPrice, setCheckoutPrice] = useState(price);
-    console.log('itemDetails---->: ', itemDetails)
-    console.log('cartOrderList---->: ', cartOrderList)
-    // useEffect(()=>{
-    //     const findDetailHistory = cartOrderList.find(itm => itm.itemNumber === itemDetails.itemNumber);
-    //     findDetailHistory && setCurrentOrderAmount(findDetailHistory.orderAmount);
-    // },[]);
-
-    const arraysEqual = (a,b) => {
-        if (a instanceof Array && b instanceof Array) {
-            if (a.length!=b.length)  // assert same length
-                return false;
-            for(var i=0; i<a.length; i++)  // assert each element equal
-                if (!arraysEqual(a[i],b[i]))
-                    return false;
-            return true;
-        }
-    }
-
-    const updateCardFormatter = (initObj, cardList) => {
-        return cardList.map(item => {
-            if (item?.itemNumber === initObj?.itemNumber) {
-                // const addInitToCardList = [...cardList, { ...initObj, orderAmount: parseInt(currentOrderAmount + item?.orderAmount)}]
-                // should add to matched itemNumber with currentOrderAmount
-                if(!initObj?.addOnSelected) {
-                // If AddOnSelected is not available in new object, add amount to item
-                    return {...initObj, orderAmount: parseInt(item.orderAmount + currentOrderAmount)}
-                };
-                if(item?.addOnSelected?.length === initObj?.addOnSelected.length) {
-                    // console.log('----(initObj?.addOnSelected.length > 0)-if----')
-                    // if addOn are fully match or if it did not match completely
-                    return arraysEqual(initObj?.addOnSelected, item?.addOnSelected) 
-                        ? { ...initObj, orderAmount: parseInt(currentOrderAmount + item?.orderAmount) }
-                        : [item, initObj]
-                } else {
-                    // console.log('----(initObj?.addOnSelected.length > 0)-ELSE----')
-                    return [item, initObj];
-                }
-            } else {
-                // console.log('-----ELSE----')
-                return [item, initObj]
-            }
-            
-        })
-    };
 
     useEffect(()=>{
         let updatePrice = parseInt(price * 100);
@@ -83,10 +37,7 @@ const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
         })
         setCheckoutPrice((updatePrice * currentOrderAmount /100).toFixed(2))
     },[addAddOn, currentOrderAmount]);
-    // console.log('checkoutPrice--->: ', checkoutPrice)
     const handleAddItemToCart = async() => {
-        const findDetailHistory = cartOrderList.find(itm => itm.itemNumber === itemNumber);
-
         const cartData = {
             ...itemDetails,
             cartItemNumber: uuid_v4(),
@@ -94,14 +45,7 @@ const ItemDetails = ({itemDetails, handleClose, cartOrderList}) => {
             orderAmount: parseInt(currentOrderAmount),
             ...(addAddOn && {addOnSelected: addAddOn.filter(item => item.on)})
         };
-        console.log('updateCardFormatter----->: ', updateCardFormatter(cartData, cartOrderList))
-        // findDetailHistory
-        //     ? console.log('findDetailHistory-true--->: ', cartData)
-        //     : console.log('findDetailHistory-false--->: ', cartOrderList.concat(cartData));
-        // findDetailHistory
-        //     ? dispatch(setCartUpdate(cartData))
-        //     : dispatch(setCart(cartOrderList.concat(cartData)));
-        dispatch(resetCart(updateCardFormatter(cartData, cartOrderList)));
+        dispatch(resetCart(handleFullUpdateAndAddToCart(cartData, cartOrderList)));
         handleClose();
     };
 

@@ -2,20 +2,18 @@ import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import ItemDetails from 'Components/Card/ItemDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderDetailState, setCart, setCartUpdate } from 'States/orderSlice';
+import { orderDetailState, resetCart } from 'States/orderSlice';
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
+import { handleFullUpdateAndAddToCart } from 'Constant/ConstantFunction';
+
 import './styles.scss';
 
 const ItemCardWithDetailQuickAdd = ({ item }) => {
     const { 
         itemNumber,
-        description,
         title,
         imgSrc,
         price,
-        itemDisable,
-        other,
-        commentId
     } = item;
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
@@ -29,11 +27,16 @@ const ItemCardWithDetailQuickAdd = ({ item }) => {
     };
 
     const handleAddItemToCart = () => {
-        const findDetailHistory = cartOrderList.find(itm => itm.itemNumber === itemNumber);
-        findDetailHistory
-            ? dispatch(setCartUpdate({...item, orderAmount: findDetailHistory.orderAmount + 1}))
-            : dispatch(setCart(cartOrderList.concat({...item, orderAmount: 1})));
-            handleClose();
+        const cartData = {
+            ...item,
+            cartItemNumber: uuid_v4(),
+            price: price,
+            orderAmount: 1,
+            addOnSelected: []
+        };
+
+        dispatch(resetCart(handleFullUpdateAndAddToCart(cartData, cartOrderList)));
+        handleClose();
     };
 
     return(

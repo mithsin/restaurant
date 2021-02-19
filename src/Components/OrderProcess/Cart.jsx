@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderDetailState, setCartUpdate, setDeleteItem } from 'States/orderSlice';
+import { orderDetailState, setCartUpdate, setDeleteItem, resetCart } from 'States/orderSlice';
 import { AddBox, RemoveCircle } from '@material-ui/icons';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +15,7 @@ const Cart = ({}) => {
     const [disableCheckout, setDisableCheckout] = useState(true)
     const [haveError, setHaveError] = useState('')
     const cartOrderList = useSelector(orderDetailState);
+    console.log('cartOrderList--->: ', cartOrderList)
     useEffect(()=>{
         cartOrderList && 
         setTotalAmount(cartOrderList.reduce((accumulator, current) => {
@@ -39,24 +40,32 @@ const Cart = ({}) => {
             title,
             price,
             orderAmount,
+            addOnSelected,
         } = cartItemDetail;
         const dispatch = useDispatch();
         const [currentOrderAmount, setCurrentOrderAmount] = useState(orderAmount)
         const updatePrice = (parseInt(orderAmount) * price).toFixed(2);
-        
+
+        const handleInputAmountUpdate = (e) => {
+            setCurrentOrderAmount(parseInt(e.target.value))
+        };
         const handleCheckoutAddUpdate = (num) => {
             if(parseInt(currentOrderAmount) < num){
                 setCurrentOrderAmount(parseInt(currentOrderAmount + 1))
-                dispatch(setCartUpdate({...cartItemDetail, orderAmount: parseInt(currentOrderAmount) + 1}))
+                // dispatch(setCartUpdate({...cartItemDetail, orderAmount: parseInt(currentOrderAmount) + 1}))
             }
         }
         const handleCheckoutMinusUpdate = (num) => {
             if(parseInt(currentOrderAmount) > num){
                 setCurrentOrderAmount(parseInt(currentOrderAmount) - 1)
-                dispatch(setCartUpdate({...cartItemDetail, orderAmount: parseInt(currentOrderAmount) - 1}))
+                // dispatch(setCartUpdate({...cartItemDetail, orderAmount: parseInt(currentOrderAmount) - 1}))
             }
-            if (parseInt(currentOrderAmount) <= num) {
+        }
+        const handleOnRefresh = () => {
+            if(currentOrderAmount < 1){
                 dispatch(setDeleteItem({...cartItemDetail}))
+            } else {
+                dispatch(setCartUpdate({...cartItemDetail, orderAmount: currentOrderAmount}))
             }
         }
 
@@ -66,6 +75,11 @@ const Cart = ({}) => {
                 <li className="CartItemList-desc-block">
                     <span>{itemNumber}</span>
                     <span>{title}</span>
+                    <span>
+                        {
+                            addOnSelected.map(addon => `${addon.name}, `)
+                        }
+                    </span>
                 </li>
                 <li className="CartItemList-price-block">
                     <span className="InputNumberWrapper">
@@ -74,6 +88,7 @@ const Cart = ({}) => {
                             label=""
                             type="number"
                             value={currentOrderAmount}
+                            onChange={handleInputAmountUpdate}
                             variant="outlined"
                             InputLabelProps={{
                                 shrink: true,
@@ -81,12 +96,12 @@ const Cart = ({}) => {
                             InputProps={{
                                 endAdornment: (
                                     <span className="AddMinusIconWrapper">
-                                        <AddBox onClick={()=>handleCheckoutAddUpdate(10)} style={{color: 'green', size: '16px', cursor: 'pointer'}}/>
+                                        <AddBox onClick={()=>handleCheckoutAddUpdate(100)} style={{color: 'green', size: '16px', cursor: 'pointer'}}/>
                                         <IndeterminateCheckBoxIcon onClick={()=>handleCheckoutMinusUpdate(1)} style={{color: 'red', size: '16px', cursor: 'pointer'}}/>
                                     </span>
                             )}}/>
-                        
                     </span>
+                        <button onClick={handleOnRefresh}>Refresh</button>
                     ${updatePrice}
                 </li>
             </ul>
