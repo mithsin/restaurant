@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { headerMenuLinks } from 'StaticDatas';
+import { headerMenuLinks, logoImg } from 'StaticDatas';
 import { HeaderStyles } from './styles';
-import { logoImg } from 'StaticDatas'
 
 const Header = ({theme}) => {
     const history = useHistory();
