@@ -19,6 +19,7 @@
     "amazon-cognito-identity-js": "^4.4.0",
     "aws-sdk": "^2.756.0",
     "axios": "^0.20.0",
+    "i18next": "^19.9.0",
     "jss": "^10.4.0",
     "jss-preset-default": "^10.4.0",
     "moment": "^2.29.1",

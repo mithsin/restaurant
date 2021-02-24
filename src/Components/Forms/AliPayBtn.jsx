@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 import {
-    CardElement,
     Elements,
     useElements,
     useStripe
   } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import axios from 'axios';
+// import axios from 'axios';
 
 const AliPayBtn = ({buyerDetails}) => {
     const stripe = useStripe();
@@ -49,8 +48,8 @@ const AliPayBtn = ({buyerDetails}) => {
             id: srcId,
             client_secret: clientId,
           });
-          console.log('paymentIntent-->: ', paymentIntent);
-          console.log('paymentIntent.source.status--->: ', paymentIntent?.source?.status)
+        //   console.log('paymentIntent-->: ', paymentIntent);
+        //   console.log('paymentIntent.source.status--->: ', paymentIntent?.source?.status)
           if(paymentIntent?.source?.status === "chargeable"){
                 setPaymentStatus(paymentIntent?.source?.status);
                 setChargeAmount(paymentIntent?.source?.amount);

@@ -115,7 +115,7 @@ const SplitStripeForm = ({
     const result = await stripe.createToken(card);
     if(result.error){
       setIsLoading(false);
-      console.log('result-err---->: ', result.error.message);
+      // console.log('result-err---->: ', result.error.message);
       setHaveError(result.error.message);
     } else {
       setHaveError('')

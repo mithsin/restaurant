@@ -15,7 +15,6 @@ const Cart = ({}) => {
     const [disableCheckout, setDisableCheckout] = useState(true)
     const [haveError, setHaveError] = useState('')
     const cartOrderList = useSelector(orderDetailState);
-    console.log('cartOrderList--->: ', cartOrderList)
     useEffect(()=>{
         cartOrderList && 
         setTotalAmount(cartOrderList.reduce((accumulator, current) => {

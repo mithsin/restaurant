@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { menuListState, setAddNewMenuCategory } from 'States/menuSlice';
 import { MuiInputField, MuiCheckboxList, MuiCheckboxListWithCheckedInput } from 'Components/MUI';
-import { SubmitButton, EditButton } from 'Components/MUI/MuiComponents/MuiBtn';
+import { SubmitButton } from 'Components/MUI/MuiComponents/MuiBtn';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';

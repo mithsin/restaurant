@@ -21,8 +21,6 @@ export const orderSlice = createSlice({
         },
         setCartUpdate: (state, action) => {
             const updateCart = state.cart.map(item => {
-                console.log('state-item--->: ', item)
-                console.log('state-action.payload.cartItemNumber--->: ', action.payload.cartItemNumber)
 
                 return ( item.cartItemNumber !== action.payload.cartItemNumber)
                     ? item 
