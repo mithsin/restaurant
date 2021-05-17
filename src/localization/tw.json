@@ -1,0 +1,12 @@
+{
+    "home": {
+        "title" : "主頁",
+        "menu" : "菜單"
+    },
+    "cardItem": {
+        "showMenu": "顯示"
+    },
+    "itemDetails": {
+        "addBtn": "買"
+    }
+}

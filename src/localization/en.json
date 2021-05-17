@@ -1,0 +1,12 @@
+{
+    "home": {
+        "title" : "HOME PAGE",
+        "menu" : "Menu"
+    },
+    "cardItem": {
+        "showMenu": "Show Menu"
+    },
+    "itemDetails": {
+        "addBtn": "ADD TO CART"
+    }
+}

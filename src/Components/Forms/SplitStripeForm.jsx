@@ -10,7 +10,6 @@ import {
   CardCvcElement,
   CardExpiryElement
 } from "@stripe/react-stripe-js";
-import moment from 'moment';
 import useResponsiveFontSize from "./useResponsiveFontSize";
 
 const useOptions = () => {

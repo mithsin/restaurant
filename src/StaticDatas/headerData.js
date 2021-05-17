@@ -4,7 +4,7 @@ import { faBullhorn, faImages } from '@fortawesome/free-solid-svg-icons';
 export const headerMenuLinks = [{
     title: "Shout-out",
     icon: <FontAwesomeIcon icon={faBullhorn} style={{cursor: 'pointer'}} className="fa-2x"/>,
-    link: "/shout-out",
+    link: "",
 },{
     title: "Albums",
     icon: <FontAwesomeIcon icon={faImages} style={{cursor: 'pointer'}} className="fa-2x"/>,

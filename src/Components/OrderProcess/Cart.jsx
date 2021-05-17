@@ -59,6 +59,9 @@ const Cart = ({}) => {
                 setCurrentOrderAmount(parseInt(currentOrderAmount) - 1)
                 // dispatch(setCartUpdate({...cartItemDetail, orderAmount: parseInt(currentOrderAmount) - 1}))
             }
+            if(parseInt(currentOrderAmount) <= num){
+                dispatch(setDeleteItem({...cartItemDetail}))
+            }
         }
         const handleOnRefresh = () => {
             if(currentOrderAmount < 1){
@@ -66,6 +69,9 @@ const Cart = ({}) => {
             } else {
                 dispatch(setCartUpdate({...cartItemDetail, orderAmount: currentOrderAmount}))
             }
+        }
+        const handleDeleteItem = () => {
+            dispatch(setDeleteItem({...cartItemDetail}))
         }
 
         return(
@@ -76,11 +82,12 @@ const Cart = ({}) => {
                     <span>{title}</span>
                     <span>
                         {
-                            addOnSelected.map(addon => `${addon.name}, `)
+                            addOnSelected && addOnSelected.map(addon => `${addon.name}, `)
                         }
                     </span>
                 </li>
                 <li className="CartItemList-price-block">
+                    <button onClick={handleDeleteItem}>Delete</button>
                     <span className="InputNumberWrapper">
                         <TextField
                             id="filled-number"

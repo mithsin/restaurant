@@ -41,6 +41,24 @@ export const HeaderStyles = createUseStyles({
     },
 });
 
+export const FooterStyle = createUseStyles({
+    Footer: { width: "100%" },
+    "Footer-Inner-Wrap": {
+        padding: "0 1rem",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        boxShadow: "0px 0px 4px 0px #818181",
+        fontSize: "1rem"
+    },
+    "Footer-Social-Block": {
+        padding: "1rem",
+        display: "flex",
+        justifyContent: "space-between",
+        flexBasis: "16rem"
+    }      
+})
+
 export const homeStyles = createUseStyles({
     HomeOrderOnline: {
         position: 'fixed',
@@ -96,9 +114,9 @@ export const homeStyles = createUseStyles({
         maxWidth: '1280px',
         display: 'grid',
         gridTemplateColumns: 'repeat(5, 1fr)',
-        // gridTemplateColumns: 'repeat(auto-fill, minmax(7rem, 1fr))',
         margin: 'auto',
-        gap: '.5rem'
+        gap: '.5rem',
+        width: '100%',
     },
     MenuOutterWrap: {
         padding: '8px',

@@ -14,7 +14,7 @@ const Header = ({theme}) => {
             <ul className={classes.MenuList}>
                 {
                     headerMenuLinks.map((type, index)=> 
-                        <li key={`${index}-link`} className={classes.MenuLi}  onClick={()=> history.push(type.link)}>
+                        type?.link && <li key={`${index}-link`} className={classes.MenuLi}  onClick={()=> history.push(type.link)}>
                             {type.icon}
                             {type.title}
                         </li>)

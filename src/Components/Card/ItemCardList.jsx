@@ -1,9 +1,12 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import ItemEdit from 'Components/Forms/ItemEdit';
-import './styles.scss';
+import { useTheme } from "react-jss";
+import { ItemCardListStyle } from './styles';
 
 const ItemCardList = ({ item, buttonLabel }) => {
+    const theme = useTheme();
+    const classes = ItemCardListStyle({ theme });
     const { 
         imgSrc,
         itemNumber,
@@ -22,14 +25,18 @@ const ItemCardList = ({ item, buttonLabel }) => {
     };
     
     return(
-        <div className={`Item-Card-List-Wrapper ${itemDisable && 'disable'}`}>
-            <div className="Item-Card-List-Img-block">
+        <div className={
+            `${itemDisable 
+                ? classes["Item-Card-List-Wrapper-disable"] 
+                : classes["Item-Card-List-Wrapper"]
+            }`}>
+            <div className={classes["Item-Card-List-Img-block"]}>
                 <span>{itemNumber}</span>
                 <img src={imgSrc} alt={title}/>
             </div>
-            <div className="Item-Card-List-Text">
+            <div className={classes["Item-Card-List-Text"]}>
                     <h2>{title}</h2>
-                <span className="Item-Card-List-span">
+                <span className={classes["Item-Card-List-Text"]["Item-Card-List-span"]}>
                     <h2>${price}</h2>
                     <button type="button" onClick={handleOpen}>{buttonLabel}</button>
                 </span>
